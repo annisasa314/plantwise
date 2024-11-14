@@ -1,6 +1,6 @@
 # Plantwise
 ## Teknik Informatika C
-Suci Artiara (D121221069)__
+Suci Artiara (D121221069)<br />
 Siti  Nur Anisah (D121221077)__
 Nurul Insyira Achmad (D121221092)
 
