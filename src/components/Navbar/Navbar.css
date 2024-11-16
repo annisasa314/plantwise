@@ -1,0 +1,45 @@
+.navbar-toolbar {
+  --background: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.navbar-logo {
+  width: 20px;
+  height: auto;
+  margin-right: 8px;
+}
+
+.navbar-title {
+  font-size: 1rem;
+  color: #2f4b26;
+  font-family: sans-serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-links ion-button {
+  font-size: 0.8rem;
+  color: #2f4b26;
+}
+
+.login-button {
+  background-color: #c0d7bb;
+  color: white;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+.signup-button {
+  background-color: #2f4b26;
+  color: white;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
