@@ -1,0 +1,7 @@
+{
+  "name": "plantwise",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
