@@ -31,7 +31,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 import "./Login.css";
 
 const Login: React.FC = () => {

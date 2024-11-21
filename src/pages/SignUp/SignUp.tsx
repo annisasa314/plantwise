@@ -17,9 +17,9 @@ import {
 import { mailOutline, lockClosedOutline, personOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import "./SignUp.css";
 
 const SignUp: React.FC = () => {
