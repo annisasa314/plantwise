@@ -1,0 +1,104 @@
+/* SignUp.css */
+
+.sign-up-content {
+  --background: #f5f5f5;
+}
+
+.signup-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.image-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 20px;
+  width: 100%;
+  height: 100vh;
+}
+
+.signup-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.header-container {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.title {
+  color: #2f4b26;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.subtitle {
+  color: #3e885b;
+  font-size: 16px;
+}
+
+.signup-card {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.input-container {
+  margin-bottom: 15px;
+  padding: 0 10px;
+}
+
+.input-field {
+  font-size: 16px;
+  color: #3e885b;
+}
+
+.button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-link {
+  text-align: center;
+  color: #2f4b26;
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.login-link IonButton {
+  font-weight: bold;
+  padding: 0;
+  color: #3e885b;
+}
+
+@media (max-width: 768px) {
+  .signup-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sigup-card {
+    padding: 15px;
+    margin: 0 10px;
+  }
+
+  .header-container .title {
+    font-size: 1.5rem;
+  }
+
+  .header-container .subtitle {
+    font-size: 1rem;
+  }
+
+  .signup-link p {
+    font-size: 0.9rem;
+  }
+}
