@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonInput,
   IonButton,
   IonItem,
-  IonLabel,
-  IonToast,
   IonIcon,
   IonCard,
   IonCardContent,
@@ -18,52 +13,43 @@ import {
   IonCol,
   IonImg,
   IonText,
+  IonToast,
 } from "@ionic/react";
-import {
-  logoGoogle,
-  mailOutline,
-  lockClosedOutline,
-  personOutline,
-} from "ionicons/icons";
+import { logoGoogle, mailOutline, lockClosedOutline } from "ionicons/icons";
 import { useHistory } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-import { auth } from "../../../firebase";
+import { loginWithEmailAndPassword, loginWithGoogle } from "../../services/auth.service";
 import "./Login.css";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string | null>(null);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
   const history = useHistory();
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await loginWithEmailAndPassword(email, password);
       setToastMessage("Sign in successful!");
+      setShowToast(true);
       setTimeout(() => {
-        setShowToast(true);
+        history.push("/home");
       }, 1500);
-      history.push("/home");
     } catch (err: any) {
-      setError("Error: " + err.message);
+      setToastMessage("Error: " + err.message);
+      setShowToast(true);
     }
   };
 
   const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
+      await loginWithGoogle();
       setToastMessage("Signed in with Google successfully!");
       setShowToast(true);
       history.push("/home");
     } catch (err: any) {
-      setError("Error: " + err.message);
+      setToastMessage("Error: " + err.message);
+      setShowToast(true);
     }
   };
 
