@@ -1,23 +1,54 @@
 import { auth } from "../../firebase";
 import {
-  createUserWithEmailAndPassword,
+  getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
-// Fungsi Autentikasi Email/Password
-export const registerWithEmailAndPassword = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+// const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+
+export const loginWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  try {
+    return await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    console.error("Login error", error);
+    throw error;
+  }
 };
 
-export const loginWithEmailAndPassword = (email: string, password: string) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const loginWithGoogle = async () => {
+  try {
+    return await signInWithPopup(auth, googleProvider);
+  } catch (error) {
+    console.error("Google login error", error);
+    throw error;
+  }
 };
 
-// Fungsi Autentikasi Google
-const provider = new GoogleAuthProvider();
+export const registerWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  try {
+    return await createUserWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    console.error("Registration error", error);
+    throw error;
+  }
+};
 
-export const loginWithGoogle = () => {
-  return signInWithPopup(auth, provider);
+export const logoutUser = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Logout error", error);
+    throw error;
+  }
 };
