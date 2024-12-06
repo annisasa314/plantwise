@@ -10,50 +10,23 @@ import {
   IonImg,
 } from "@ionic/react";
 import "./Navbar.css";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { Navitems } from "../NavItem/NavItem";
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   return (
     <IonHeader>
-      <IonToolbar className="navbar-toolbar">
-        <IonButtons slot="start">
-          <IonTitle className="navbar-title">plantwise</IonTitle>
-        </IonButtons>
-
-        <div className="navbar-links" slot="end">
-          <IonButton fill="clear" routerLink="/home">
-            Beranda
-          </IonButton>
-          <IonButton fill="clear" routerLink="/catalog">
-            Panduan
-          </IonButton>
-          <IonButton fill="clear" routerLink="/schedule">
-            Jadwal
-          </IonButton>
-          <IonButton fill="clear" routerLink="/calculator">
-            Kalkulator
-          </IonButton>
-          <IonButton fill="clear" routerLink="/forum">
-            Forum
-          </IonButton>
-          <IonButtons>
-            <IonButton
-              fill="clear"
-              color="dark"
-              routerLink="/login"
-              className="login-button"
-            >
-              Masuk
-            </IonButton>
-            <IonButton
-              color="light"
-              routerLink="/signup"
-              className="signup-button"
-            >
-              Daftar
-            </IonButton>
+      {!isDesktop ? (
+        <IonToolbar className="navbar-toolbar">
+          <IonButtons slot="start">
+            <img src="/logo.png" alt="Plantwise Logo" className="logo-img" />
           </IonButtons>
-        </div>
-      </IonToolbar>
+        </IonToolbar>
+      ) : (
+        <Navitems />
+      )}
     </IonHeader>
   );
 };
