@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonLabel, IonItem, IonSelect, IonSelectOption, IonSearchbar } from '@ionic/react';
+import { IonContent, IonPage, IonCard, IonCardContent, IonLabel, IonItem, IonSelect, IonSelectOption, IonSearchbar } from '@ionic/react';
 import { getTanamanData } from '../../services/auth.service';
+import { Navbar } from '../../components/Navbar/Navbar'
 
 const Jadwal: React.FC = () => {
   const [tanamanList, setTanamanList] = useState<any[]>([]);
@@ -19,11 +20,7 @@ const Jadwal: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Jadwal Tanam Ideal</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Navbar />
       <IonContent>
         {/* Search Bar */}
         <IonSearchbar 
