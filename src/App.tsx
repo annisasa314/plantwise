@@ -43,9 +43,6 @@ import PanduanForm from "./pages/Admin/PanduanForm";
 import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
-import PanduanDetail from "./pages/Panduan/Panduan";
-import TutorialsList from "./pages/Panduan/Panduan";
-import ListCard from "./pages/Panduan/CardPanduan";
 import Panduan from "./pages/Panduan/Panduan";
 
 setupIonicReact();
