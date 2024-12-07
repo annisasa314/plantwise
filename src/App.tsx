@@ -6,8 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Import your pages
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
-import Signup from "./pages/SignUp/SignUp";
+
+import SignUp from "./pages/SignUp/SignUp";
+import Calculator from "./pages/Kalkulator/Kalkulator";
+import Navbar from "./components/Navbar/Navbar"
+
 
 // Ionic CSS
 import "@ionic/react/css/core.css";
@@ -22,7 +25,25 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
+
 import Profile from "./pages/Profile/Profile";
+
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* import '@ionic/react/css/palettes/dark.always.css'; */
+/* import '@ionic/react/css/palettes/dark.class.css'; */
+// import "@ionic/react/css/palettes/dark.system.css";
+
+/* Theme variables */
+import "./theme/variables.css";
+import Jadwal from "./pages/Jadwal/jadwal";
+
 
 setupIonicReact();
 
@@ -37,6 +58,7 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => (
+
   <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
@@ -56,6 +78,33 @@ const App: React.FC = () => (
       </IonReactRouter>
     </IonApp>
   </QueryClientProvider>
+
+  <IonApp>
+    <IonReactRouter>
+      <Navbar />
+      <IonRouterOutlet>
+        <Route exact path="/home">
+          <Home />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/kalkulator">
+          <Calculator />
+        </Route>
+        <Route exact path="/jadwal">
+          <Jadwal />
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/home" />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
+
 );
 
 export default App;
