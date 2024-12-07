@@ -9,8 +9,7 @@ import Login from "./pages/Login/Login";
 
 import SignUp from "./pages/SignUp/SignUp";
 import Calculator from "./pages/Kalkulator/Kalkulator";
-import Navbar from "./components/Navbar/Navbar"
-
+import Navbar from "./components/Navbar/Navbar";
 
 // Ionic CSS
 import "@ionic/react/css/core.css";
@@ -28,7 +27,6 @@ import "@ionic/react/css/display.css";
 
 import Profile from "./pages/Profile/Profile";
 
-
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -43,7 +41,7 @@ import Profile from "./pages/Profile/Profile";
 /* Theme variables */
 import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
-
+import Home from "./pages/Home/Home";
 
 setupIonicReact();
 
@@ -58,16 +56,15 @@ const queryClient = new QueryClient({
 });
 
 const App: React.FC = () => (
-
   <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
-          {/* <Route exact path="/forum" component={Forum} /> */}
-          {/* <Route exact path="/calculator" component={Calculator} /> */}
+          <Route exact path="/jadwal" component={Jadwal} />
+          <Route exact path="/kalculator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
 
           {/* Default redirect */}
@@ -78,33 +75,6 @@ const App: React.FC = () => (
       </IonReactRouter>
     </IonApp>
   </QueryClientProvider>
-
-  <IonApp>
-    <IonReactRouter>
-      <Navbar />
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/signup">
-          <SignUp />
-        </Route>
-        <Route exact path="/kalkulator">
-          <Calculator />
-        </Route>
-        <Route exact path="/jadwal">
-          <Jadwal />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-
 );
 
 export default App;
