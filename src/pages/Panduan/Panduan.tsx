@@ -17,7 +17,7 @@ type Tutorial = {
   sections: Section[];
 };
 
-const PanduanDetail: React.FC = () => {
+const Panduan: React.FC = () => {
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
   const [selectedTutorial, setSelectedTutorial] = useState<Tutorial | null>(
     null
@@ -34,6 +34,15 @@ const PanduanDetail: React.FC = () => {
 
     return unsubscribe;
   }, []);
+
+  // Group tutorials by category
+  const groupedTutorials = tutorials.reduce((acc, tutorial) => {
+    if (!acc[tutorial.category]) {
+      acc[tutorial.category] = [];
+    }
+    acc[tutorial.category].push(tutorial);
+    return acc;
+  }, {} as Record<string, Tutorial[]>);
 
   return (
     <IonContent>
@@ -75,27 +84,31 @@ const PanduanDetail: React.FC = () => {
               </button>
             </div>
           ) : (
-            // If no tutorial is selected, show the list of tutorials
-            tutorials.map((tutorial) => (
-              <div key={tutorial.id} className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">{tutorial.category}</h2>
-                <div className="grid grid-cols-3 gap-4">
-                  <div>
-                    <img
-                      src={tutorial.image}
-                      alt={tutorial.title}
-                      className="rounded-md shadow-md"
-                    />
-                    <p className="mt-2 text-sm text-gray-600">
-                      {tutorial.title}
-                    </p>
-                    <button
-                      onClick={() => setSelectedTutorial(tutorial)}
-                      className="mt-2 px-4 py-2 bg-[#2f4b26] text-white rounded-md"
-                    >
-                      Lihat Detail
-                    </button>
-                  </div>
+            // If no tutorial is selected, show the list of tutorials grouped by category
+            Object.keys(groupedTutorials).map((category) => (
+              <div key={category} className="mb-12">
+                <h2 className="text-2xl font-bold mb-4">{category}</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {groupedTutorials[category].map((tutorial) => (
+                    <div key={tutorial.id} className="mb-6">
+                      <div
+                        className="bg-white shadow-md rounded-md p-4 cursor-pointer"
+                        onClick={() => setSelectedTutorial(tutorial)}
+                      >
+                        <img
+                          src={tutorial.image}
+                          alt={tutorial.title}
+                          className="w-full h-56 object-cover mb-4 rounded-md"
+                        />
+                        <h3 className="font-semibold text-lg text-[#2f4b26]">
+                          {tutorial.title}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {tutorial.category}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))
@@ -106,4 +119,4 @@ const PanduanDetail: React.FC = () => {
   );
 };
 
-export default PanduanDetail;
+export default Panduan;

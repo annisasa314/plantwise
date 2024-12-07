@@ -13,6 +13,7 @@ import {
 import Konva from "konva";
 import { Stage, Layer, Rect, Text, Group } from "react-konva";
 import "./Kalkulator.css";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Calculator: React.FC = () => {
   const [length, setLength] = useState<number>(0);
@@ -96,6 +97,7 @@ const Calculator: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
+        <Navbar />
         <IonToolbar>
           <IonTitle>Calculator Jarak Tanam</IonTitle>
         </IonToolbar>
