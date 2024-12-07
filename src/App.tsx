@@ -26,6 +26,7 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 import Profile from "./pages/Profile/Profile";
+import PanduanForm from "./pages/Admin/PanduanForm";
 
 /**
  * Ionic Dark Mode
@@ -42,6 +43,7 @@ import Profile from "./pages/Profile/Profile";
 import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
+import Panduan from "./pages/Panduan/Panduan";
 
 setupIonicReact();
 
@@ -64,9 +66,11 @@ const App: React.FC = () => (
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/panduan" component={Panduan} />
           <Route exact path="/jadwal" component={Jadwal} />
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/add-panduan" component={PanduanForm} />
 
           {/* Default redirect */}
           <Route exact path="/">
