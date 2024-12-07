@@ -18,37 +18,35 @@ export const Navbar: React.FC = () => {
 
   return (
     <IonHeader>
-
-      {!isDesktop ? (
-        <IonToolbar className="navbar-toolbar">
-          <IonButtons slot="start">
-            <img src="/logo.png" alt="Plantwise Logo" className="logo-img" />
-
       <IonToolbar className="navbar-toolbar">
         <IonButtons slot="start">
-          <IonTitle className="navbar-title">plantwise</IonTitle>
+          <IonMenuButton />
+          {/* Logo untuk mobile dan desktop */}
+          <IonImg src="/logo.png" alt="Plantwise Logo" className="logo-img" />
         </IonButtons>
 
-        <div className="navbar-links" slot="end">
-          <IonButton fill="clear" routerLink="/home">
-            Beranda
-          </IonButton>
-          <IonButton fill="clear" routerLink="/catalog">
-            Panduan
-          </IonButton>
-          <IonButton fill="clear" routerLink="/jadwal">
-            Jadwal
-          </IonButton>
-          <IonButton fill="clear" routerLink="/Kalkulator">
-            Kalkulator
-          </IonButton>
-          <IonButton fill="clear" routerLink="/forum">
-            Forum
-          </IonButton>
-          <IonButtons>
+        <IonTitle className="navbar-title">plantwise</IonTitle>
+
+        {/* Menu untuk mobile dan tablet */}
+        {!isDesktop && (
+          <IonButtons slot="end">
+            <IonButton fill="clear" routerLink="/home">
+              Beranda
+            </IonButton>
+            <IonButton fill="clear" routerLink="/panduan">
+              Panduan
+            </IonButton>
+            <IonButton fill="clear" routerLink="/jadwal">
+              Jadwal
+            </IonButton>
+            <IonButton fill="clear" routerLink="/Kalkulator">
+              Kalkulator
+            </IonButton>
+            <IonButton fill="clear" routerLink="/forum">
+              Forum
+            </IonButton>
             <IonButton
               fill="clear"
-              color="dark"
               routerLink="/login"
               className="login-button"
             >
@@ -61,12 +59,12 @@ export const Navbar: React.FC = () => {
             >
               Daftar
             </IonButton>
-
           </IonButtons>
-        </IonToolbar>
-      ) : (
-        <Navitems />
-      )}
+        )}
+
+        {/* Menampilkan Navitems untuk desktop */}
+        {isDesktop && <Navitems />}
+      </IonToolbar>
     </IonHeader>
   );
 };
