@@ -59,6 +59,7 @@ const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
+      <Navbar />
         <IonRouterOutlet>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
