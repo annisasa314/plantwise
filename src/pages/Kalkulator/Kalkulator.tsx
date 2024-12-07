@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonPage, 
-  IonToolbar, 
-  IonTitle, 
-  IonInput, 
-  IonButton, 
-  IonCard, 
-  IonCardContent 
-} from '@ionic/react';
-import Konva from 'konva';
-import { Stage, Layer, Rect, Text, Group } from 'react-konva';
-import './Kalkulator.css';
+import React, { useState } from "react";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonToolbar,
+  IonTitle,
+  IonInput,
+  IonButton,
+  IonCard,
+  IonCardContent,
+} from "@ionic/react";
+import Konva from "konva";
+import { Stage, Layer, Rect, Text, Group } from "react-konva";
+import "./Kalkulator.css";
 
 const Calculator: React.FC = () => {
   const [length, setLength] = useState<number>(0);
@@ -25,11 +25,11 @@ const Calculator: React.FC = () => {
   const [plantLayout, setPlantLayout] = useState<Konva.Vector2d[]>([]);
 
   const spacingOptions = [
-    { value: 40, label: '40 (Jagung)' },
-    { value: 50, label: '50 (Semangka)' },
-    { value: 30, label: '30 (Kumis Kucing)' },
-    { value: 25, label: '25 (Jahe)' },
-    { value: 60, label: '60 (Cabai Rawit)' }
+    { value: 40, label: "40 (Jagung)" },
+    { value: 50, label: "50 (Semangka)" },
+    { value: 30, label: "30 (Kumis Kucing)" },
+    { value: 25, label: "25 (Jahe)" },
+    { value: 60, label: "60 (Cabai Rawit)" },
   ];
 
   const calculatePlanting = () => {
@@ -47,7 +47,7 @@ const Calculator: React.FC = () => {
         for (let x = 0; x < columns; x++) {
           layout.push({
             x: x * columnSpacing,
-            y: y * rowSpacing
+            y: y * rowSpacing,
           });
         }
       }
@@ -105,14 +105,14 @@ const Calculator: React.FC = () => {
           <IonCardContent>
             <IonInput
               value={length}
-              onIonChange={e => setLength(Number(e.detail.value!))}
+              onIonChange={(e) => setLength(Number(e.detail.value!))}
               type="number"
               label="Panjang Lokasi Tanam (m)"
               labelPlacement="floating"
             />
             <IonInput
               value={width}
-              onIonChange={e => setWidth(Number(e.detail.value!))}
+              onIonChange={(e) => setWidth(Number(e.detail.value!))}
               type="number"
               label="Lebar Lokasi Tanam (m)"
               labelPlacement="floating"
@@ -122,12 +122,12 @@ const Calculator: React.FC = () => {
               <select
                 id="spacingSelect"
                 value={spacing}
-                onChange={e => setSpacing(Number(e.target.value))}
+                onChange={(e) => setSpacing(Number(e.target.value))}
               >
                 <option value="" disabled>
                   Pilih Jarak Tanam (cm)
                 </option>
-                {spacingOptions.map(option => (
+                {spacingOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
                   </option>
