@@ -23,6 +23,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import Profile from "./pages/Profile/Profile";
+import PanduanForm from "./pages/Admin/PanduanForm";
 
 setupIonicReact();
 
@@ -47,6 +48,7 @@ const App: React.FC = () => (
           {/* <Route exact path="/forum" component={Forum} /> */}
           {/* <Route exact path="/calculator" component={Calculator} /> */}
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/add-panduan" component={PanduanForm} />
 
           {/* Default redirect */}
           <Route exact path="/">
