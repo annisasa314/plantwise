@@ -64,7 +64,7 @@ const App: React.FC = () => (
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/jadwal" component={Jadwal} />
-          <Route exact path="/kalculator" component={Calculator} />
+          <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
 
           {/* Default redirect */}
