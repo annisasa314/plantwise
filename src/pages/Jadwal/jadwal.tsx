@@ -56,9 +56,9 @@ const Jadwal: React.FC = () => {
           <IonCard key={tanaman.id}>
             <IonCardContent>
               <h2>{tanaman.nama_tanaman}</h2>
-              <h3>{tanaman.waktu_penanaman}</h3>
-              <h3>{tanaman.musim}</h3>
-              <p>{tanaman.jenis_tanaman}</p>
+              <h3>{`Waktu Penanaman : ${tanaman.waktu_penanaman}`}</h3>
+              <h3>{`Musim : ${tanaman.musim}`}</h3>
+              <h3>{`Jenis : ${tanaman.jenis_tanaman}`}</h3>
             </IonCardContent>
           </IonCard>
         ))}
