@@ -2,14 +2,21 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   IonContent,
   IonPage,
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonToolbar,
+  IonTitle,
   IonInput,
   IonButton,
   IonCard,
   IonCardContent,
 } from "@ionic/react";
 import Konva from "konva";
+
 import { Stage, Layer, Rect, Group, Image as KonvaImage } from "react-konva";
 import Navbar from '../../components/Navbar/Navbar';
+
 import "./Kalkulator.css";
 
 const Calculator: React.FC = () => {

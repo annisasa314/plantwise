@@ -3,6 +3,7 @@ import { IonContent, IonPage, IonCard, IonCardContent, IonLabel, IonItem, IonSel
 import { getTanamanData } from '../../services/auth.service';
 import Navbar from "../../components/Navbar/Navbar"
 
+
 const Jadwal: React.FC = () => {
   // State untuk menyimpan daftar tanaman yang akan ditampilkan
   const [tanamanList, setTanamanList] = useState<any[]>([]);
@@ -31,7 +32,6 @@ const Jadwal: React.FC = () => {
 
   return (
     <IonPage>
-      {/* Navbar yang sudah dibuat */}
       <Navbar />
       <IonContent>
         {/* Search Bar untuk pencarian tanaman */}

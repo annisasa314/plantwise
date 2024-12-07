@@ -14,44 +14,91 @@ import {
   IonImg,
   IonText,
   IonToast,
+  IonSpinner,
 } from "@ionic/react";
 import { logoGoogle, mailOutline, lockClosedOutline } from "ionicons/icons";
-import { useHistory } from "react-router-dom";
-import { loginWithEmailAndPassword, loginWithGoogle } from "../../services/auth.service";
+import { Controller, useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+import { Redirect } from "react-router";
+
+import {
+  loginWithEmailAndPassword,
+  loginWithGoogle,
+} from "../../services/auth.service";
+import { TUser } from "../../types/user.type";
+import { TLoginForm } from "../../types/form.type";
+import { eye, eyeOff } from "ionicons/icons";
 import "./Login.css";
 
-const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+import { useLogin } from "../../hooks/useLogin";
+
+export const Login: React.FC = () => {
+  const LoginMutation = useLogin();
+  const queryClient = useQueryClient();
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
-  const history = useHistory();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async () => {
-    try {
-      await loginWithEmailAndPassword(email, password);
+  const { mutateAsync } = useMutation<TUser, Error, TLoginForm>({
+    mutationFn: async (formData: TLoginForm) => {
+      const userCredential = await loginWithEmailAndPassword(
+        formData.email,
+        formData.password
+      );
+      // Assuming you need to transform the userCredential to TUser
+      // Modify this based on your actual auth service implementation
+      return {
+        id: userCredential.user.uid,
+        email: userCredential.user.email,
+        // Add other user properties as needed
+      } as TUser;
+    },
+    retry: 0,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["user"], data);
+      Cookies.set("user", JSON.stringify(data));
       setToastMessage("Sign in successful!");
       setShowToast(true);
       setTimeout(() => {
-        history.push("/home");
+        window.location.href = "/home";
       }, 1500);
+    },
+    onError: (error) => {
+      setToastMessage("Error: " + error.message);
+      setShowToast(true);
+    },
+  });
+
+  const { control, handleSubmit } = useForm<TLoginForm>();
+
+  const userCookies = Cookies.get("user");
+  const user = userCookies ? (JSON.parse(userCookies) as TUser) : undefined;
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const userCredential = await loginWithGoogle();
+      const userData = {
+        id: userCredential.user.uid,
+        email: userCredential.user.email,
+        // Add other user properties as needed
+      } as TUser;
+
+      queryClient.setQueryData(["user"], userData);
+      Cookies.set("user", JSON.stringify(userData));
+      setToastMessage("Signed in with Google successfully!");
+      setShowToast(true);
+      window.location.href = "/home";
     } catch (err: any) {
       setToastMessage("Error: " + err.message);
       setShowToast(true);
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await loginWithGoogle();
-      setToastMessage("Signed in with Google successfully!");
-      setShowToast(true);
-      history.push("/home");
-    } catch (err: any) {
-      setToastMessage("Error: " + err.message);
-      setShowToast(true);
-    }
-  };
+  if (user) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <IonPage>
@@ -66,34 +113,73 @@ const Login: React.FC = () => {
 
               <IonCard className="login-card">
                 <IonCardContent>
-                  <IonItem lines="none" className="input-container">
-                    <IonIcon icon={mailOutline} slot="start" />
-                    <IonInput
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      onIonChange={(e) => setEmail(e.detail.value!)}
+                  <form onSubmit={handleSubmit((data) => mutateAsync(data))}>
+                    <Controller
+                      control={control}
+                      name="email"
+                      rules={{
+                        required: "Please enter email address",
+                        pattern: {
+                          value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                          message: "Please enter valid email address",
+                        },
+                      }}
+                      render={({ field: { onChange, value }, fieldState }) => (
+                        <IonItem lines="none" className="input-container">
+                          <IonIcon icon={mailOutline} slot="start" />
+                          <IonInput
+                            type="email"
+                            placeholder="Enter your email"
+                            value={value}
+                            onIonChange={onChange}
+                            errorText={fieldState.error?.message}
+                            required
+                          />
+                        </IonItem>
+                      )}
                     />
-                  </IonItem>
 
-                  <IonItem lines="none" className="input-container">
-                    <IonIcon icon={lockClosedOutline} slot="start" />
-                    <IonInput
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onIonChange={(e) => setPassword(e.detail.value!)}
+                    <Controller
+                      control={control}
+                      name="password"
+                      rules={{
+                        required: "Please enter password",
+                        minLength: {
+                          value: 6,
+                          message: "Password must be at least 6 characters",
+                        },
+                      }}
+                      render={({ field: { onChange, value }, fieldState }) => (
+                        <IonItem lines="none" className="input-container">
+                          <IonIcon icon={lockClosedOutline} slot="start" />
+                          <IonInput
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Enter your password"
+                            value={value}
+                            onIonChange={onChange}
+                            errorText={fieldState.error?.message}
+                            required
+                          >
+                            <IonIcon
+                              icon={showPassword ? eye : eyeOff}
+                              className="password-toggle-icon"
+                              onClick={() => setShowPassword(!showPassword)}
+                            />
+                          </IonInput>
+                        </IonItem>
+                      )}
                     />
-                  </IonItem>
 
-                  <IonButton
-                    expand="block"
-                    onClick={handleLogin}
-                    color="primary"
-                    className="button-container"
-                  >
-                    Login
-                  </IonButton>
+                    <IonButton
+                      expand="block"
+                      type="submit"
+                      color="primary"
+                      className="button-container"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? <IonSpinner name="circles" /> : "Login"}
+                    </IonButton>
+                  </form>
 
                   <div className="ion-text-center">
                     <IonText color="medium">or login with</IonText>
@@ -104,6 +190,7 @@ const Login: React.FC = () => {
                     onClick={handleGoogleSignIn}
                     color="secondary"
                     className="google-button"
+                    disabled={isLoading}
                   >
                     <IonIcon slot="start" icon={logoGoogle} />
                     Login with Google
@@ -117,7 +204,7 @@ const Login: React.FC = () => {
                   fill="clear"
                   size="small"
                   color="primary"
-                  onClick={() => history.push("/signup")}
+                  onClick={() => (window.location.href = "/signup")}
                 >
                   Sign Up
                 </IonButton>
