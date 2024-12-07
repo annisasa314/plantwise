@@ -45,6 +45,7 @@ import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
 
+
 setupIonicReact();
 
 // Create a client
