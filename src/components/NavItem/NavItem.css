@@ -1,0 +1,53 @@
+.navbar {
+  background-color: black;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: white;
+}
+
+.navbar__logo {
+  display: contents;
+  font-weight: bold;
+  color: #3e7d30;
+}
+
+.logo-img {
+  display: contents;
+}
+
+.navbar__menu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.navbar__menu-item {
+  color: white;
+  font-weight: 500;
+}
+
+.navbar__menu-item.active {
+  color: #3e7d30;
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar__button {
+  font-size: 0.9rem;
+}
+
+.navbar__greeting {
+  color: white;
+  margin-right: 8px;
+}
+
+.navbar__avatar {
+  border-radius: 50%;
+  overflow: hidden;
+}

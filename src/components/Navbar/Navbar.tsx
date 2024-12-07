@@ -10,10 +10,20 @@ import {
   IonImg,
 } from "@ionic/react";
 import "./Navbar.css";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { Navitems } from "../NavItem/NavItem";
 
-const Navbar: React.FC = () => {
+export const Navbar: React.FC = () => {
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+
   return (
     <IonHeader>
+
+      {!isDesktop ? (
+        <IonToolbar className="navbar-toolbar">
+          <IonButtons slot="start">
+            <img src="/logo.png" alt="Plantwise Logo" className="logo-img" />
+
       <IonToolbar className="navbar-toolbar">
         <IonButtons slot="start">
           <IonTitle className="navbar-title">plantwise</IonTitle>
@@ -51,9 +61,12 @@ const Navbar: React.FC = () => {
             >
               Daftar
             </IonButton>
+
           </IonButtons>
-        </div>
-      </IonToolbar>
+        </IonToolbar>
+      ) : (
+        <Navitems />
+      )}
     </IonHeader>
   );
 };

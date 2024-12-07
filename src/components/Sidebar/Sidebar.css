@@ -1,0 +1,45 @@
+.sidebar {
+  font-size: 16px;
+}
+
+.sidebar__title {
+  font-weight: 700;
+  font-size: 1.5em;
+  width: fit-content;
+}
+
+.sidebar__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.sidebar__btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.sidebar__sidebaritem {
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  padding-block: 10px;
+}
+
+ion-searchbar.sidebar__searchbar {
+  --color: var(--ion-color-dark);
+  --placeholder-color: var(--ion-color-medium);
+  --background: var(--ion-color-light);
+  --box-shadow: none;
+  --border-radius: 24px;
+  --icon-color: var(--ion-color-primary);
+  --clear-button-color: var(--ion-color-primary);
+  text-align: left;
+}
