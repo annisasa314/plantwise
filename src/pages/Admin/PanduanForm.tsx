@@ -73,7 +73,7 @@ const PanduanForm: React.FC = () => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Masukkan judul tutorial"
-            className="w-full border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+            className="w-full bg-white border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
             required
           />
         </div>
@@ -85,7 +85,7 @@ const PanduanForm: React.FC = () => {
             value={image}
             onChange={(e) => setImage(e.target.value)}
             placeholder="Masukkan URL gambar"
-            className="w-full border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+            className="w-full bg-white border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
             required
           />
         </div>
@@ -95,22 +95,25 @@ const PanduanForm: React.FC = () => {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
+            className="w-full bg-white border-gray-300 rounded-md p-2 focus:border-blue-500 focus:ring-blue-500"
             required
           >
             <option value="" disabled>
               Pilih Kategori
             </option>
-            <option value="sayur">Sayur</option>
-            <option value="buah">Buah</option>
-            <option value="tanaman obat">Tanaman Obat</option>
+            <option value="Sayur">Sayur</option>
+            <option value="Buah">Buah</option>
+            <option value="Tanaman Obat">Tanaman Obat</option>
           </select>
         </div>
 
         <div>
           <label className="block mb-2 font-medium">Bagian</label>
           {sections.map((section, index) => (
-            <div key={index} className="border-gray-300 rounded-md p-4 mb-2">
+            <div
+              key={index}
+              className="border-gray-300 bg-white rounded-md p-4 mb-2"
+            >
               <input
                 type="text"
                 value={section.heading}
@@ -118,7 +121,7 @@ const PanduanForm: React.FC = () => {
                   handleSectionChange(index, "heading", e.target.value)
                 }
                 placeholder={`Heading ${index + 1}`}
-                className="w-full border-b border-gray-300 mb-2 p-2 focus:border-blue-500"
+                className="w-full border-b bg-white border-gray-300 mb-2 p-2 focus:border-blue-500"
                 required
               />
               <textarea
@@ -137,7 +140,7 @@ const PanduanForm: React.FC = () => {
                   )
                 }
                 placeholder={`Konten ${index + 1}`}
-                className="w-full border-gray-300 p-2 focus:border-blue-500"
+                className="w-full bg-white border-gray-300 p-2 focus:border-blue-500"
                 rows={3}
                 required
               />
