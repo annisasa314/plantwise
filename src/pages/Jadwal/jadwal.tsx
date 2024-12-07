@@ -1,39 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCard, IonCardContent, IonLabel, IonItem, IonSelect, IonSelectOption, IonSearchbar } from '@ionic/react';
+import { IonContent, IonPage, IonCard, IonCardContent, IonLabel, IonItem, IonSelect, IonSelectOption, IonSearchbar } from '@ionic/react';
 import { getTanamanData } from '../../services/auth.service';
+import Navbar from "../../components/Navbar/Navbar"
 
 const Jadwal: React.FC = () => {
+  // State untuk menyimpan daftar tanaman yang akan ditampilkan
   const [tanamanList, setTanamanList] = useState<any[]>([]);
+  
+  // State untuk filter berdasarkan jenis tanaman
   const [jenisFilter, setJenisFilter] = useState<string>('');
+  
+  // State untuk filter berdasarkan musim
   const [musimFilter, setMusimFilter] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState<string>(''); // New state for search query
+  
+  // State untuk pencarian tanaman berdasarkan query
+  const [searchQuery, setSearchQuery] = useState<string>(''); 
 
+  // useEffect untuk mengambil data tanaman setiap kali filter atau query pencarian berubah
   useEffect(() => {
     const fetchTanamanData = async () => {
-      const data = await getTanamanData(jenisFilter, musimFilter, searchQuery); // Pass the search query to the service function
+      // Memanggil fungsi untuk mendapatkan data tanaman berdasarkan filter dan pencarian
+      const data = await getTanamanData(jenisFilter, musimFilter, searchQuery);
+      // Menyimpan data yang didapat ke dalam state tanamanList
       setTanamanList(data);
     };
 
+    // Memanggil fungsi fetchTanamanData saat komponen dimuat atau ketika filter atau query berubah
     fetchTanamanData();
-  }, [jenisFilter, musimFilter, searchQuery]); // Re-fetch when search query changes
+  }, [jenisFilter, musimFilter, searchQuery]); // Mengulang pengambilan data ketika ada perubahan pada jenisFilter, musimFilter, atau searchQuery
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Jadwal Tanam Ideal</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      {/* Navbar yang sudah dibuat */}
+      <Navbar />
       <IonContent>
-        {/* Search Bar */}
+        {/* Search Bar untuk pencarian tanaman */}
         <IonSearchbar 
           value={searchQuery}
-          debounce={500} // Optional: Adjust debounce time for better user experience
-          onIonInput={(e) => setSearchQuery(e.detail.value!)} 
-          placeholder="Cari Tanaman..." 
+          debounce={500} // Menambahkan debounce untuk mengurangi jumlah permintaan pencarian saat mengetik
+          onIonInput={(e) => setSearchQuery(e.detail.value!)}  // Mengupdate state searchQuery saat input berubah
+          placeholder="Cari Tanaman..."  // Placeholder untuk input pencarian
         />
 
-        {/* Filter Components */}
+        {/* Komponen filter berdasarkan jenis tanaman */}
         <IonItem>
           <IonLabel>Jenis Tanaman</IonLabel>
           <IonSelect value={jenisFilter} placeholder="Pilih Jenis Tanaman" onIonChange={(e) => setJenisFilter(e.detail.value)}>
@@ -42,6 +51,8 @@ const Jadwal: React.FC = () => {
             <IonSelectOption value="Tanaman Obat">Tanaman Obat</IonSelectOption>
           </IonSelect>
         </IonItem>
+
+        {/* Komponen filter berdasarkan musim */}
         <IonItem>
           <IonLabel>Musim</IonLabel>
           <IonSelect value={musimFilter} placeholder="Pilih Musim" onIonChange={(e) => setMusimFilter(e.detail.value)}>
@@ -51,7 +62,7 @@ const Jadwal: React.FC = () => {
           </IonSelect>
         </IonItem>
 
-        {/* Display Card */}
+        {/* Menampilkan daftar tanaman dalam bentuk kartu */}
         {tanamanList.map((tanaman) => (
           <IonCard key={tanaman.id}>
             <IonCardContent>
