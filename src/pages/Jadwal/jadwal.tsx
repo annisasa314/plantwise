@@ -17,6 +17,7 @@ import { getTanamanData } from "../../services/auth.service";
 import Navbar from "../../components/Navbar/Navbar";
 
 const Jadwal: React.FC = () => {
+  // State untuk menyimpan daftar tanaman yang akan ditampilkan
   const [tanamanList, setTanamanList] = useState<any[]>([]);
   const [jenisFilter, setJenisFilter] = useState<string>("");
   const [musimFilter, setMusimFilter] = useState<string>("");
@@ -28,6 +29,7 @@ const Jadwal: React.FC = () => {
       setTanamanList(data);
     };
 
+    // Memanggil fungsi fetchTanamanData saat komponen dimuat atau ketika filter atau query berubah
     fetchTanamanData();
   }, [jenisFilter, musimFilter, searchQuery]);
 
