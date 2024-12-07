@@ -26,10 +26,10 @@ const Navbar: React.FC = () => {
           <IonButton fill="clear" routerLink="/catalog">
             Panduan
           </IonButton>
-          <IonButton fill="clear" routerLink="/schedule">
+          <IonButton fill="clear" routerLink="/jadwal">
             Jadwal
           </IonButton>
-          <IonButton fill="clear" routerLink="/calculator">
+          <IonButton fill="clear" routerLink="/Kalkulator">
             Kalkulator
           </IonButton>
           <IonButton fill="clear" routerLink="/forum">

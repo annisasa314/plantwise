@@ -4,6 +4,8 @@ import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
+import Calculator from "./pages/Kalkulator/Kalkulator";
+import Navbar from "./components/Navbar/Navbar"
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -34,12 +36,14 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import Jadwal from "./pages/Jadwal/jadwal";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
+      <Navbar />
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
@@ -49,6 +53,12 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/signup">
           <SignUp />
+        </Route>
+        <Route exact path="/kalkulator">
+          <Calculator />
+        </Route>
+        <Route exact path="/jadwal">
+          <Jadwal />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
