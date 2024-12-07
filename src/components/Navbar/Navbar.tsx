@@ -19,14 +19,6 @@ export const Navbar: React.FC = () => {
   return (
     <IonHeader>
       <IonToolbar className="navbar-toolbar">
-        <IonButtons slot="start">
-          <IonMenuButton />
-          {/* Logo untuk mobile dan desktop */}
-          <IonImg src="/logo.png" alt="Plantwise Logo" className="logo-img" />
-        </IonButtons>
-
-        <IonTitle className="navbar-title">plantwise</IonTitle>
-
         {/* Menu untuk mobile dan tablet */}
         {!isDesktop && (
           <IonButtons slot="end">
@@ -62,7 +54,6 @@ export const Navbar: React.FC = () => {
           </IonButtons>
         )}
 
-        {/* Menampilkan Navitems untuk desktop */}
         {isDesktop && <Navitems />}
       </IonToolbar>
     </IonHeader>
