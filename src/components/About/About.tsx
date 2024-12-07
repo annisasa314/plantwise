@@ -22,24 +22,32 @@ const About: React.FC = () => {
           <div className="mb-4 text-[#2f4b26] mr-10 text-base tracking-wide">
             <IonText>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-                tellus sapien, pulvinar a velit blandit, eleifend egestas justo.
-                Maecenas pretium nunc id orci volutpat, consectetur cursus nibh
-                mattis.
+                Plantwise adalah sebuah platform edukasi non-profit dengan misi
+                memberdayakan penanam pemula di Indonesia, khususnya dalam
+                mengembangkan kemampuan bercocok tanam di pekarangan rumah. Kami
+                berkomitmen untuk menciptakan dampak positif bagi sektor
+                agrikultur rumahan di Indonesia melalui edukasi dan pemberdayaan
+                komunitas.
               </p>
               <br />
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                molestie felis a velit pharetra, in vestibulum ante dapibus.
-                Aliquam vitae faucibus turpis. Suspendisse pharetra pharetra
-                erat, sit amet aliquam lacus feugiat a. Etiam sed urna quis
-                dolor faucibus bibendum. Mauris finibus nunc sit amet lacus
-                tincidunt, nec aliquam orci suscipit. Nulla facilisi. Sed
-                gravida pretium pharetra. Sed a quam a eros fringilla luctus ac
-                in odio. Nulla sed purus mi. Mauris id diam cursus, tristique
-                sapien iaculis, faucibus nisi. Ut accumsan vitae diam nec
-                gravida. Maecenas malesuada, dui sit amet venenatis dictum,
-                augue est semper odio, nec commodo ipsum nulla non mi.
+                Bercocok tanam di pekarangan rumah tidak hanya memberikan
+                manfaat kesehatan dengan menyediakan pangan segar, tetapi juga
+                berkontribusi pada penguatan ketahanan pangan lokal. Namun,
+                banyak penanam pemula menghadapi tantangan, seperti kurangnya
+                pengetahuan dasar bercocok tanam, keterbatasan akses ke
+                teknologi sederhana, keterampilan dalam mengatasi serangan hama
+                dan penyakit, hingga kendala terkait perubahan cuaca dan
+                lingkungan.
+              </p>
+              <p>
+                Kami percaya bahwa edukasi yang berkelanjutan adalah kunci untuk
+                membantu penanam pemula meningkatkan hasil panen mereka. Melalui
+                pendekatan praktis, kami menyediakan panduan, pelatihan, dan
+                dukungan komunitas yang dapat membantu mereka memanfaatkan
+                potensi pekarangan rumah secara maksimal, meningkatkan
+                keberlanjutan, dan mendukung gaya hidup yang lebih sehat dan
+                ramah lingkungan.
               </p>
             </IonText>
           </div>

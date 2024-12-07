@@ -6,8 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Import your pages
 import Login from "./pages/Login/Login";
-import Home from "./pages/Home/Home";
-import Signup from "./pages/SignUp/SignUp";
+
+import SignUp from "./pages/SignUp/SignUp";
+import Calculator from "./pages/Kalkulator/Kalkulator";
+import Navbar from "./components/Navbar/Navbar";
 
 // Ionic CSS
 import "@ionic/react/css/core.css";
@@ -22,8 +24,25 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
+
 import Profile from "./pages/Profile/Profile";
 import PanduanForm from "./pages/Admin/PanduanForm";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* import '@ionic/react/css/palettes/dark.always.css'; */
+/* import '@ionic/react/css/palettes/dark.class.css'; */
+// import "@ionic/react/css/palettes/dark.system.css";
+
+/* Theme variables */
+import "./theme/variables.css";
+import Jadwal from "./pages/Jadwal/jadwal";
+import Home from "./pages/Home/Home";
 
 setupIonicReact();
 
@@ -43,10 +62,10 @@ const App: React.FC = () => (
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
-          {/* <Route exact path="/forum" component={Forum} /> */}
-          {/* <Route exact path="/calculator" component={Calculator} /> */}
+          <Route exact path="/jadwal" component={Jadwal} />
+          <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/add-panduan" component={PanduanForm} />
 

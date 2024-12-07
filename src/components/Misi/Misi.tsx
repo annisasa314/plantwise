@@ -15,19 +15,12 @@ const VisionMission: React.FC = () => {
           </div>
           <IonText className="text-base text-[#2f4b26] leading-relaxed">
             <p>
-              Pellentesque aliquam eget odio non efficitur. Morbi porta, mi eget
-              vulputate efficitur, enim dui eleifend ex, in malesuada mauris
-              elit et turpis. Ut a velit augue. Praesent ut nunc id nisi
-              scelerisque pretium vel dapibus ligula. Aliquam eget accumsan sem,
-              vel viverra magna. Duis ornare enim at sagittis efficitur. Ut
-              semper ut nisi hendrerit porttitor. Integer at maximus enim.
+              Visi Plantwise adalah menjadi platform edukasi terdepan yang
+              memberdayakan penanam pemula di Indonesia untuk mengoptimalkan
+              potensi pekarangan rumah, meningkatkan ketahanan pangan lokal, dan
+              mendukung praktik bercocok tanam yang berkelanjutan dan ramah
+              lingkungan
             </p>
-            <p>
-              Aliquam orci neque, facilisis non faucibus ut, commodo vitae
-              nulla. Etiam accumsan, odio ut euismod porta, lacus mi semper
-              velit, non scelerisque magna elit non nibh.
-            </p>
-            <br />
           </IonText>
         </IonCol>
 
@@ -40,19 +33,24 @@ const VisionMission: React.FC = () => {
           </div>
           <IonText className="text-base text-[#2f4b26] leading-relaxed">
             <p>
-              Pellentesque aliquam eget odio non efficitur. Morbi porta, mi eget
-              vulputate efficitur, enim dui eleifend ex, in malesuada mauris
-              elit et turpis. Ut a velit augue. Praesent ut nunc id nisi
-              scelerisque pretium vel dapibus ligula. Aliquam eget accumsan sem,
-              vel viverra magna. Duis ornare enim at sagittis efficitur. Ut
-              semper ut nisi hendrerit porttitor. Integer at maximus enim.
+              Plantwise bertujuan untuk memberdayakan masyarakat dalam bercocok
+              tanam secara mandiri di pekarangan rumah, dengan fokus pada
+              ketahanan pangan dan keberlanjutan lingkungan. Berikut adalah misi
+              kami:
               <ul>
                 <li>
-                  Nullam suscipit justo sit amet augue placerat imperdiet.
+                  Menyediakan edukasi praktis dan akses informasi bagi penanam
+                  pemula untuk mengembangkan keterampilan bercocok tanam di
+                  pekarangan rumah.
                 </li>
-                <li>Mauris a risus vel lectus viverra ornare eget quis ex.</li>
-                <li>Nullam eleifend tellus in ultricies ultrices.</li>
-                <li>Vivamus eget urna non est convallis laoreet.</li>
+                <li>
+                  Mendukung praktik pertanian berkelanjutan yang ramah
+                  lingkungan dan dapat diakses oleh masyarakat luas.
+                </li>
+                <li>
+                  Membangun komunitas yang saling berbagi pengetahuan dan
+                  pengalaman dalam bercocok tanam untuk kesejahteraan bersama.
+                </li>
               </ul>
             </p>
           </IonText>

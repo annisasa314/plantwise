@@ -18,15 +18,44 @@ export const Navbar: React.FC = () => {
 
   return (
     <IonHeader>
-      {!isDesktop ? (
-        <IonToolbar className="navbar-toolbar">
-          <IonButtons slot="start">
-            <img src="/logo.png" alt="Plantwise Logo" className="logo-img" />
+      <IonToolbar className="navbar-toolbar">
+        {/* Menu untuk mobile dan tablet */}
+        {!isDesktop && (
+          <IonButtons slot="end">
+            <IonButton fill="clear" routerLink="/home">
+              Beranda
+            </IonButton>
+            <IonButton fill="clear" routerLink="/panduan">
+              Panduan
+            </IonButton>
+            <IonButton fill="clear" routerLink="/jadwal">
+              Jadwal
+            </IonButton>
+            <IonButton fill="clear" routerLink="/Kalkulator">
+              Kalkulator
+            </IonButton>
+            <IonButton fill="clear" routerLink="/forum">
+              Forum
+            </IonButton>
+            <IonButton
+              fill="clear"
+              routerLink="/login"
+              className="login-button"
+            >
+              Masuk
+            </IonButton>
+            <IonButton
+              color="light"
+              routerLink="/signup"
+              className="signup-button"
+            >
+              Daftar
+            </IonButton>
           </IonButtons>
-        </IonToolbar>
-      ) : (
-        <Navitems />
-      )}
+        )}
+
+        {isDesktop && <Navitems />}
+      </IonToolbar>
     </IonHeader>
   );
 };

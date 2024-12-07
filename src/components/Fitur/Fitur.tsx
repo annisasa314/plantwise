@@ -5,27 +5,27 @@ import TutorialCard from "./CardFitur";
 const TutorialGrid: React.FC = () => {
   const tutorialData = [
     {
-      title: "Tutorial",
+      title: "Panduan",
       content:
-        "Sed malesuada vestibulum malesuada. Aenean utricies mi eu urna finibus, suscipit condimentum lectus finibus.",
-      navigateTo: "/tutorial",
+        "Fitur ini menyediakan panduan langkah demi langkah tentang cara bertanam, mulai dari pemilihan benih hingga cara perawatan tanaman yang tepat. Cocok untuk pemula maupun yang sudah berpengalaman.",
+      navigateTo: "/panduan",
     },
     {
       title: "Kalender",
       content:
-        "Fusce faucibus nulla id faucibus sodales. Et euismod nibh et purus egestas, eu efficitur lectus varius.",
+        "Fitur ini membantu pengguna menentukan waktu terbaik untuk menanam berbagai jenis tanaman berdasarkan data cuaca, musim, dan jenis tanaman. Jadwal ini dirancang untuk meningkatkan peluang panen yang sukses.",
       navigateTo: "/calendar",
     },
     {
       title: "Kalkulator",
       content:
-        "Praesent in erat consectetur, auctor eros sed, tincidunt augue Nullam sollicitudin. Nisi eget elit laoreet malesuada.",
+        "Fitur ini memungkinkan pengguna menghitung jarak tanam ideal berdasarkan parameter seperti jenis tanaman, panjang, dan lebar lahan. Kalkulator ini juga dapat menghasilkan visualisasi gambar tata letak tanaman untuk mempermudah perencanaan.",
       navigateTo: "/calculator",
     },
     {
       title: "Forum",
       content:
-        "Vestibulum pretium scelerisque condominium. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
+        "Fitur interaktif di mana pengguna dapat mengajukan pertanyaan seputar pertanian atau bertanam. Pertanyaan-pertanyaan ini dapat dijawab oleh sesama pengguna maupun bot AI, menciptakan komunitas berbagi pengetahuan yang aktif.",
       navigateTo: "/forum",
     },
   ];
