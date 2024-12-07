@@ -43,6 +43,9 @@ import PanduanForm from "./pages/Admin/PanduanForm";
 import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
+import PanduanDetail from "./pages/Panduan/Panduan";
+import TutorialsList from "./pages/Panduan/Panduan";
+import ListCard from "./pages/Panduan/CardPanduan";
 
 setupIonicReact();
 
@@ -64,6 +67,8 @@ const App: React.FC = () => (
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/panduan" component={ListCard} />
+          <Route exact path="/panduan/:id" component={TutorialsList} />
           <Route exact path="/jadwal" component={Jadwal} />
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
