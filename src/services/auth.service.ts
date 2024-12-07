@@ -23,14 +23,17 @@ export const loginWithGoogle = () => {
   return signInWithPopup(auth, provider);
 };
 
-export const getTanamanData = async (jenis?: string, musim?: string) => {
+// Function to get tanaman data with optional filters for jenis, musim, and search query
+export const getTanamanData = async (jenis?: string, musim?: string, searchQuery?: string) => {
   try {
+    // Build the Firestore query with optional filters
     const q = query(
       collection(db, 'jadwal_tanam'),
       ...(jenis ? [where('jenis_tanaman', '==', jenis)] : []),
-      ...(musim ? [where('musim', '==', musim)] : [])
+      ...(musim ? [where('musim', '==', musim)] : []),
+      ...(searchQuery ? [where('nama_tanaman', '>=', searchQuery), where('nama_tanaman', '<=', searchQuery + '\uf8ff')] : [])
     );
-    
+
     const querySnapshot = await getDocs(q);
     const tanamanData: any[] = [];
     querySnapshot.forEach(doc => {
@@ -42,3 +45,4 @@ export const getTanamanData = async (jenis?: string, musim?: string) => {
     return [];
   }
 };
+
