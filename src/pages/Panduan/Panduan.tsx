@@ -46,8 +46,8 @@ const Panduan: React.FC = () => {
 
   return (
     <IonContent>
-      <Navbar />{" "}
-      <div className="bg-gray-100 py-12">
+      <Navbar />
+      <div className="bg-gray-100 py-12 p-36">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {selectedTutorial ? (
             // If a tutorial is selected, show the tutorial details
@@ -87,7 +87,9 @@ const Panduan: React.FC = () => {
             // If no tutorial is selected, show the list of tutorials grouped by category
             Object.keys(groupedTutorials).map((category) => (
               <div key={category} className="mb-12">
-                <h2 className="text-2xl font-bold mb-4">{category}</h2>
+                <h2 className="text-xl font-semibold text-[#2f4b26] mb-4">
+                  {"Panduan Tanam " + category}
+                </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {groupedTutorials[category].map((tutorial) => (
                     <div key={tutorial.id} className="mb-6">
@@ -100,12 +102,10 @@ const Panduan: React.FC = () => {
                           alt={tutorial.title}
                           className="w-full h-56 object-cover mb-4 rounded-md"
                         />
-                        <h3 className="font-semibold text-lg text-[#2f4b26]">
+                        <h3 className="font-normal text-lg text-[#2f4b26]">
                           {tutorial.title}
                         </h3>
-                        <p className="text-sm text-gray-600">
-                          {tutorial.category}
-                        </p>
+                        <p className="text-sm text-gray-600">Lihat Panduan</p>
                       </div>
                     </div>
                   ))}
