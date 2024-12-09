@@ -16,7 +16,6 @@ import { Stage, Layer, Rect, Group, Image as KonvaImage } from "react-konva";
 import Navbar from "../../components/Navbar/Navbar";
 
 import "./Kalkulator.css";
-import Navbar from "../../components/Navbar/Navbar";
 
 const Calculator: React.FC = () => {
   const [length, setLength] = useState<number>(0);
