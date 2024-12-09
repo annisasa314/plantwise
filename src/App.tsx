@@ -9,7 +9,7 @@ import Login from "./pages/Login/Login";
 
 import SignUp from "./pages/SignUp/SignUp";
 import Calculator from "./pages/Kalkulator/Kalkulator";
-import Navbar from "./components/Navbar/Navbar";
+// import Navbar from "./components/Navbar/Navbar";
 
 // Ionic CSS
 import "@ionic/react/css/core.css";
@@ -44,7 +44,9 @@ import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
-
+import { AdminLayout } from "./layouts/AdminLayout";
+import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
+import Chatbot from "./pages/Bot/Chatbot";
 
 setupIonicReact();
 
@@ -62,7 +64,7 @@ const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
-      <Navbar />
+        {/* <Navbar /> */}
         <IonRouterOutlet>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
@@ -72,6 +74,10 @@ const App: React.FC = () => (
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/add-panduan" component={PanduanForm} />
+          <Route exact path="/admin/dashboard" component={DashboardPage} />
+
+          {/* link  untuk lihat ui */}
+          <Route exact path="/chatbot" component={Chatbot} />
 
           {/* Default redirect */}
           <Route exact path="/">
