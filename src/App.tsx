@@ -9,7 +9,6 @@ import Login from "./pages/Login/Login";
 
 import SignUp from "./pages/SignUp/SignUp";
 import Calculator from "./pages/Kalkulator/Kalkulator";
-import Navbar from "./components/Navbar/Navbar";
 
 // Ionic CSS
 import "@ionic/react/css/core.css";
@@ -45,7 +44,6 @@ import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
 
-
 setupIonicReact();
 
 // Create a client
@@ -62,7 +60,6 @@ const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
-      <Navbar />
         <IonRouterOutlet>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
