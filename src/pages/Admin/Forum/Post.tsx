@@ -1,53 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { MaterialReactTable } from 'material-react-table';
-import { getUsers, deleteUser } from '../../../services/auth.service';
-import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
+import { getPosts, deletePost } from '../../../services/auth.service';
+import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Button, Snackbar } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Snackbar } from '@mui/material';
 import { IonPage, IonContent } from '@ionic/react';
 import Navbar from '../../../components/Navbar/Navbar';
 
-const UserPage: React.FC = () => {
-  const [users, setUsers] = useState<any[]>([]);
+const PostPage: React.FC = () => {
+  const [posts, setPosts] = useState<any[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const usersData = await getUsers();
-      setUsers(usersData);
+    const fetchPosts = async () => {
+      const postsData = await getPosts();
+      setPosts(postsData);
     };
 
-    fetchUsers();
+    fetchPosts();
   }, []);
 
-  const handleDeleteUser = async () => {
-    if (selectedUserId) {
+  const handleDeletePost = async () => {
+    if (selectedPostId) {
       try {
-        await deleteUser(selectedUserId);
-        setSnackbarMessage("User deleted successfully!");
+        await deletePost(selectedPostId);
+        setSnackbarMessage("Post deleted successfully!");
         setOpenSnackbar(true);
         setOpenDeleteDialog(false);
-        // Refresh users list after deletion
-        const usersData = await getUsers();
-        setUsers(usersData);
+        // Refresh posts list after deletion
+        const postsData = await getPosts();
+        setPosts(postsData);
       } catch (error) {
-        setSnackbarMessage("Failed to delete user. Please try again.");
+        setSnackbarMessage("Failed to delete post. Please try again.");
         setOpenSnackbar(true);
       }
     }
   };
 
-  const handleOpenDeleteDialog = (userId: string) => {
-    setSelectedUserId(userId);
+  const handleOpenDeleteDialog = (postId: string) => {
+    setSelectedPostId(postId);
     setOpenDeleteDialog(true);
   };
 
   const handleCloseDeleteDialog = () => {
     setOpenDeleteDialog(false);
-    setSelectedUserId(null);
+    setSelectedPostId(null);
   };
 
   return (
@@ -59,14 +58,28 @@ const UserPage: React.FC = () => {
             {
               accessorKey: 'name',
               header: 'Name',
+              // Assuming 'name' is a reference to the user document, you may want to resolve it from the database.
             },
             {
-              accessorKey: 'email',
-              header: 'Email',
+              accessorKey: 'judul',
+              header: 'Title',
             },
             {
-              accessorKey: 'createdAt',
+              accessorKey: 'createAt',
               header: 'Created At',
+            },
+            {
+              accessorKey: 'pertanyaan',
+              header: 'Pertanyaan',
+            },
+            {
+              accessorKey: 'view',
+              header: 'Views',
+            },
+            {
+              accessorKey: 'body',
+              header: 'Comments',
+              // This might require resolving the comment reference (komentar) to display text.
             },
             {
               id: 'delete',
@@ -81,7 +94,7 @@ const UserPage: React.FC = () => {
               ),
             },
           ]}
-          data={users}
+          data={posts}
           enableColumnFilters={false}
           enableSorting={false}
           enablePagination={false}
@@ -91,13 +104,13 @@ const UserPage: React.FC = () => {
         <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
           <DialogTitle>Confirm Deletion</DialogTitle>
           <DialogContent>
-            <p>Are you sure you want to delete this user?</p>
+            <p>Are you sure you want to delete this post?</p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDeleteDialog} color="primary">
               Cancel
             </Button>
-            <Button onClick={handleDeleteUser} color="error">
+            <Button onClick={handleDeletePost} color="error">
               Delete
             </Button>
           </DialogActions>
@@ -115,4 +128,4 @@ const UserPage: React.FC = () => {
   );
 };
 
-export default UserPage;
+export default PostPage;
