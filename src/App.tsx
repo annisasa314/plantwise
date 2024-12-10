@@ -51,6 +51,7 @@ import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
 import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
+import AdminLogin from "./pages/Admin/Login/AdminLogin";
 
 setupIonicReact();
 
@@ -76,6 +77,7 @@ const App: React.FC = () => (
           <Route exact path="/jadwal" component={Jadwal} />
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/admin" component={AdminLogin} />
           {/* <Route exact path="/admin/panduan" component={UserPage} /> */}
           <Route exact path="/add-panduan" component={PanduanForm} />
           <Route exact path="/admin/dashboard" component={Dashboard} />
