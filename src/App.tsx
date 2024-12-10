@@ -84,7 +84,7 @@ const App: React.FC = () => (
           <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
           <Route exact path="/tambah-jadwal" component={AddJadwal} />
           <Route exact path="/post-admin" component={PostPage} />
-          {/* <Route exact path="/admin/forum/komentar" component={} /> */}
+          <Route exact path="/admin/forum/komentar" component={CommentPage} />
           <Route exact path="/admin/forum/post" component={PostPage} />
 
           {/* Default redirect */}
