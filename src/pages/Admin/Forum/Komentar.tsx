@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { MaterialReactTable } from 'material-react-table';
+import React, { useEffect, useState } from "react";
+import { MaterialReactTable } from "material-react-table";
 import {
   IconButton,
   Dialog,
@@ -8,16 +8,19 @@ import {
   DialogTitle,
   Button,
   Snackbar,
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { IonPage, IonContent } from '@ionic/react';
-import Navbar from '../../../components/Navbar/Navbar';
-import { getComments, deleteComment } from '../../../services/auth.service';
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IonPage, IonContent } from "@ionic/react";
+import Navbar from "../../../components/Navbar/Navbar";
+import { getComments, deleteComment } from "../../../services/auth.service";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const CommentPage: React.FC = () => {
   const [comments, setComments] = useState<any[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
-  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(null);
+  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(
+    null
+  );
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
 
@@ -64,35 +67,40 @@ const CommentPage: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
       <IonContent className="ion-padding">
+        <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
+          Komentar
+        </h1>
         <MaterialReactTable
           columns={[
             {
-              accessorKey: 'name',
-              header: 'Nama',
+              accessorKey: "name",
+              header: "Nama",
             },
             {
-              accessorKey: 'judul',
-              header: 'Judul Postingan',
+              accessorKey: "judul",
+              header: "Judul Postingan",
             },
             {
-              accessorKey: 'body',
-              header: 'Komentar',
+              accessorKey: "body",
+              header: "Komentar",
             },
             {
-              accessorKey: 'createAt',
-              header: 'Tanggal Dibuat',
+              accessorKey: "createAt",
+              header: "Tanggal Dibuat",
               Cell: ({ cell }) => {
-                const timestamp = cell.getValue() as { seconds: number; nanoseconds: number };
+                const timestamp = cell.getValue() as {
+                  seconds: number;
+                  nanoseconds: number;
+                };
                 const date = new Date(timestamp.seconds * 1000);
                 return date.toLocaleString();
               },
             },
             {
-              id: 'delete',
-              header: 'Aksi',
+              id: "delete",
+              header: "Aksi",
               Cell: ({ row }) => (
                 <IconButton
                   onClick={() => handleOpenDeleteDialog(row.original.id)}
@@ -133,7 +141,7 @@ const CommentPage: React.FC = () => {
           message={snackbarMessage}
         />
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 
