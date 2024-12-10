@@ -41,14 +41,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ contentId }) => {
 
   return (
     <IonMenu contentId={contentId} side="end">
-      {/* <IonHeader>
-        <IonToolbar className="ion-padding-horizontal">
-          <IonButtons slot="start">
-            <img src="/logo.png" alt="Plantwise Logo" className="logo-img" />
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader> */}
-
       <IonContent fullscreen className="ion-padding sidebar">
         <IonCol className="sidebar__container">
           <IonButtons className="w-full">
