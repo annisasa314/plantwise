@@ -174,6 +174,9 @@ const Calculator: React.FC = () => {
   return (
     <IonPage>
       <Navbar />
+      <IonToolbar color="primary" className="text-white">
+          <IonTitle className="font-bold">Kalkulator Jarak Tanam</IonTitle>
+        </IonToolbar>
       <IonContent>
         <IonCard>
           <IonCardContent>
