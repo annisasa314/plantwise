@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs, query, where, deleteDoc, doc, updateDoc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, deleteDoc, doc, updateDoc, addDoc, orderBy } from 'firebase/firestore';
 
 // const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -170,18 +170,66 @@ export const createJadwalTanam = async (newJadwal: any) => {
   }
 };
 
+interface Post {
+  id: string;
+  nama: string; // Reference ke user
+  judul: string;
+  pertanyaan: string;
+  createAt: Date;
+  view: number;
+  komentar: string; // Reference ke komentar
+}
 
-export const getPosts = async () => {
-  const postsRef = collection(db, 'postingan');
-  const postsSnapshot = await getDocs(postsRef);
-  const postsData = postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-  return postsData;
+export const getPosts = async (): Promise<Post[]> => {
+  try {
+    const postsRef = collection(db, 'postingan');
+    const q = query(postsRef, orderBy('createAt', 'desc'));
+    
+    const querySnapshot = await getDocs(q);
+    const posts: Post[] = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as Post));
+
+    return posts;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    throw error;
+  }
 };
 
-// Delete post
-export const deletePost = async (postId: string) => {
-  const postRef = doc(db, 'postingan', postId);
-  await deleteDoc(postRef);
+export const deletePost = async (postId: string): Promise<void> => {
+  try {
+    const postRef = doc(db, 'postingan', postId);
+    await deleteDoc(postRef);
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    throw error;
+  }
+};
+
+const commentCollection = collection(db, 'comments');
+
+export const getComments = async () => {
+  const querySnapshot = await getDocs(commentCollection);
+  return querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+};
+
+export const deleteComment = async (id: string) => {
+  const commentDoc = doc(db, 'comments', id);
+  await deleteDoc(commentDoc);
+};
+
+export const addComment = async (commentData: {
+  name: string;
+  body: string;
+  createAt: Date;
+  judul: string;
+}) => {
+  await addDoc(commentCollection, commentData);
 };
 
 export {

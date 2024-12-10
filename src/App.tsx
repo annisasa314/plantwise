@@ -33,6 +33,7 @@ import JadwalAdmin from "./pages/Admin/Jadwal/Jadwal";
 import EditJadwal from "./pages/Admin/Jadwal/EditJadwal";
 import AddJadwal from "./pages/Admin/Jadwal/TambahJadwal";
 import PostPage from "./pages/Admin/Forum/Post";
+import CommentPage from "./pages/Admin/Forum/Komentar";
 
 /**
  * Ionic Dark Mode
@@ -50,7 +51,6 @@ import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
-import { AdminLayout } from "./layouts/AdminLayout";
 import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
 
 setupIonicReact();
@@ -81,15 +81,13 @@ const App: React.FC = () => (
           <Route exact path="/add-panduan" component={PanduanForm} />
           <Route exact path="/admin/dashboard" component={DashboardPage} />
 
-          {/* link  untuk lihat ui */}
-          <Route exact path="/chatbot" component={Chatbot} />
-
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/user" component={UserPage} />
           <Route exact path="/jadwal-admin" component={JadwalAdmin} />
           <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
           <Route exact path="/tambah-jadwal" component={AddJadwal} />
           <Route exact path="/post-admin" component={PostPage} />
+          <Route exact path="/comment-admin" component={CommentPage} />
 
           {/* Default redirect */}
           <Route exact path="/">

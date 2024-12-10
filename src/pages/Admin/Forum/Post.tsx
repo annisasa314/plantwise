@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { MaterialReactTable } from 'material-react-table';
 import { getPosts, deletePost } from '../../../services/auth.service';
-import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Button, Snackbar } from '@mui/material';
+import { 
+  IconButton, 
+  Dialog, 
+  DialogActions, 
+  DialogContent, 
+  DialogTitle, 
+  Button, 
+  Snackbar 
+} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IonPage, IonContent } from '@ionic/react';
 import Navbar from '../../../components/Navbar/Navbar';
@@ -15,8 +23,13 @@ const PostPage: React.FC = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const postsData = await getPosts();
-      setPosts(postsData);
+      try {
+        const postsData = await getPosts();
+        setPosts(postsData);
+      } catch (error) {
+        setSnackbarMessage("Gagal memuat postingan");
+        setOpenSnackbar(true);
+      }
     };
 
     fetchPosts();
@@ -26,14 +39,15 @@ const PostPage: React.FC = () => {
     if (selectedPostId) {
       try {
         await deletePost(selectedPostId);
-        setSnackbarMessage("Post deleted successfully!");
+        setSnackbarMessage("Postingan berhasil dihapus!");
         setOpenSnackbar(true);
         setOpenDeleteDialog(false);
-        // Refresh posts list after deletion
+        
+        // Refresh daftar postingan setelah penghapusan
         const postsData = await getPosts();
         setPosts(postsData);
       } catch (error) {
-        setSnackbarMessage("Failed to delete post. Please try again.");
+        setSnackbarMessage("Gagal menghapus postingan. Silakan coba lagi.");
         setOpenSnackbar(true);
       }
     }
@@ -57,33 +71,37 @@ const PostPage: React.FC = () => {
           columns={[
             {
               accessorKey: 'name',
-              header: 'Name',
-              // Assuming 'name' is a reference to the user document, you may want to resolve it from the database.
+              header: 'Nama Pengguna',
+              Cell: ({ cell }) => cell.getValue()?.toString() || '-'
             },
             {
               accessorKey: 'judul',
-              header: 'Title',
-            },
-            {
-              accessorKey: 'createAt',
-              header: 'Created At',
+              header: 'Judul Postingan',
             },
             {
               accessorKey: 'pertanyaan',
               header: 'Pertanyaan',
             },
             {
+              accessorKey: 'body',
+              header: 'Komentar',
+              
+            },
+            {
+              accessorKey: 'createAt',
+              header: 'Dibuat Pada',
+              Cell: ({ cell }) => {
+                const date = cell.getValue() as Date;
+                return date ? date.toLocaleString() : '-';
+              }
+            },
+            {
               accessorKey: 'view',
               header: 'Views',
             },
             {
-              accessorKey: 'body',
-              header: 'Comments',
-              // This might require resolving the comment reference (komentar) to display text.
-            },
-            {
               id: 'delete',
-              header: 'Actions',
+              header: 'Aksi',
               Cell: ({ row }) => (
                 <IconButton
                   onClick={() => handleOpenDeleteDialog(row.original.id)}
@@ -95,28 +113,28 @@ const PostPage: React.FC = () => {
             },
           ]}
           data={posts}
-          enableColumnFilters={false}
-          enableSorting={false}
-          enablePagination={false}
+          enableColumnFilters={true}
+          enableSorting={true}
+          enablePagination={true}
         />
 
-        {/* Delete Confirmation Dialog */}
+        {/* Dialog Konfirmasi Hapus */}
         <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
-          <DialogTitle>Confirm Deletion</DialogTitle>
+          <DialogTitle>Konfirmasi Penghapusan</DialogTitle>
           <DialogContent>
-            <p>Are you sure you want to delete this post?</p>
+            <p>Apakah Anda yakin ingin menghapus postingan ini?</p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDeleteDialog} color="primary">
-              Cancel
+              Batal
             </Button>
             <Button onClick={handleDeletePost} color="error">
-              Delete
+              Hapus
             </Button>
           </DialogActions>
         </Dialog>
 
-        {/* Snackbar for notification */}
+        {/* Snackbar untuk notifikasi */}
         <Snackbar
           open={openSnackbar}
           autoHideDuration={6000}
