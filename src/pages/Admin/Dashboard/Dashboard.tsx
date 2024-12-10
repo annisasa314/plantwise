@@ -46,7 +46,10 @@ const Dashboard: React.FC = () => {
 
   return (
     <AdminLayout>
-      <IonContent>
+      <IonContent className="ion-padding">
+        <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
+          Dashboard
+        </h1>
         {userCount === null ||
         postCount === null ||
         tutorialCount === null ||
