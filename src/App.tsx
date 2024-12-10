@@ -52,7 +52,6 @@ import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
 import { AdminLayout } from "./layouts/AdminLayout";
 import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
-import Chatbot from "./pages/Bot/Chatbot";
 
 setupIonicReact();
 
@@ -91,7 +90,6 @@ const App: React.FC = () => (
           <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
           <Route exact path="/tambah-jadwal" component={AddJadwal} />
           <Route exact path="/post-admin" component={PostPage} />
-
 
           {/* Default redirect */}
           <Route exact path="/">
