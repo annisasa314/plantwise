@@ -1,11 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom'; // Import useHistory
-import { MaterialReactTable } from 'material-react-table';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, IconButton } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
-import { getJadwalTanam, deleteJadwalTanam } from '../../../services/auth.service';
-import { IonPage, IonContent, IonButton } from '@ionic/react';
-import Navbar from '../../../components/Navbar/Navbar';
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom"; // Import useHistory
+import { MaterialReactTable } from "material-react-table";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  IconButton,
+} from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
+import {
+  getJadwalTanam,
+  deleteJadwalTanam,
+} from "../../../services/auth.service";
+import { IonPage, IonContent, IonButton } from "@ionic/react";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const JadwalAdmin = () => {
   const history = useHistory(); // Initialize useHistory hook
@@ -20,7 +30,7 @@ const JadwalAdmin = () => {
         const data = await getJadwalTanam();
         setJadwalData(data);
       } catch (error) {
-        console.error('Error fetching jadwal tanam: ', error);
+        console.error("Error fetching jadwal tanam: ", error);
       }
     };
     fetchData();
@@ -31,46 +41,48 @@ const JadwalAdmin = () => {
     if (selectedJadwal) {
       try {
         await deleteJadwalTanam(selectedJadwal.id);
-        setJadwalData(prevData => prevData.filter(jadwal => jadwal.id !== selectedJadwal.id));
+        setJadwalData((prevData) =>
+          prevData.filter((jadwal) => jadwal.id !== selectedJadwal.id)
+        );
         setOpenDeleteDialog(false);
       } catch (error) {
-        console.error('Error deleting jadwal tanam: ', error);
+        console.error("Error deleting jadwal tanam: ", error);
       }
     }
   };
 
   const columns = [
     {
-      accessorKey: 'jenis_tanaman',
-      header: 'Kategori',
+      accessorKey: "jenis_tanaman",
+      header: "Kategori",
     },
     {
-      accessorKey: 'nama_tanaman',
-      header: 'Nama Tanaman',
+      accessorKey: "nama_tanaman",
+      header: "Nama Tanaman",
     },
     {
-      accessorKey: 'musim',
-      header: 'Musim',
+      accessorKey: "musim",
+      header: "Musim",
     },
     {
-      accessorKey: 'waktu_penanaman',
-      header: 'Waktu Tanam',
+      accessorKey: "waktu_penanaman",
+      header: "Waktu Tanam",
     },
     {
-      id: 'actions',
-      header: 'Actions',
+      id: "actions",
+      header: "Actions",
       Cell: ({ row }: any) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <IconButton 
-            onClick={() => handleEdit(row.original)} 
-            color="primary" 
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <IconButton
+            onClick={() => handleEdit(row.original)}
+            color="primary"
             size="small"
           >
             <Edit />
           </IconButton>
-          <IconButton 
-            onClick={() => handleDeleteDialog(row)} 
-            color="error" 
+          <IconButton
+            onClick={() => handleDeleteDialog(row)}
+            color="error"
             size="small"
           >
             <Delete />
@@ -83,7 +95,6 @@ const JadwalAdmin = () => {
   const handleEdit = (jadwal: any) => {
     history.push(`/edit-jadwal/${jadwal.id}`); // Navigasi dengan ID
   };
-  
 
   const handleDeleteDialog = (row: any) => {
     setSelectedJadwal(row.original);
@@ -97,21 +108,31 @@ const JadwalAdmin = () => {
 
   // Navigasi ke halaman tambah jadwal
   const handleAddJadwal = () => {
-    history.push('/tambah-jadwal'); // Rute menuju halaman tambah jadwal
+    history.push("/tambah-jadwal"); // Rute menuju halaman tambah jadwal
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
       <IonContent className="ion-padding">
+        {/* Heading "Jadwal Tanam" */}
+        <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
+          Jadwal Tanam
+        </h1>
+
         {/* Button "Add" di kanan atas */}
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "20px",
+          }}
+        >
           <IonButton onClick={handleAddJadwal}>Tambah Data</IonButton>
         </div>
 
         {/* Material React Table */}
         <MaterialReactTable columns={columns} data={jadwalData} />
-        
+
         {/* Delete Confirmation Dialog */}
         <Dialog open={openDeleteDialog} onClose={handleCloseDeleteDialog}>
           <DialogTitle>Konfirmasi Penghapusan</DialogTitle>
@@ -119,12 +140,16 @@ const JadwalAdmin = () => {
             <p>Apakah Anda yakin ingin menghapus jadwal tanam ini?</p>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseDeleteDialog} color="primary">Batal</Button>
-            <Button onClick={handleDelete} color="error">Hapus</Button>
+            <Button onClick={handleCloseDeleteDialog} color="primary">
+              Batal
+            </Button>
+            <Button onClick={handleDelete} color="error">
+              Hapus
+            </Button>
           </DialogActions>
         </Dialog>
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 
