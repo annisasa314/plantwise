@@ -12,8 +12,8 @@ const HeroSection: React.FC<HeroSection> = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-transparent"></div>
 
       <div className="relative flex items-center justify-left pl-24 h-full">
-        <IonText className="text-white font-semibold text-3xl text-center">
-          Selamat Datang ke Plantwise
+        <IonText className="text-white font-semibold text-3xl text-left">
+          <p>Tentang kami plantwise</p>
         </IonText>
       </div>
     </div>
