@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { MaterialReactTable } from 'material-react-table';
-import { getPosts, deletePost } from '../../../services/auth.service';
-import { 
-  IconButton, 
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogTitle, 
-  Button, 
-  Snackbar 
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { IonPage, IonContent } from '@ionic/react';
-import Navbar from '../../../components/Navbar/Navbar';
+import React, { useEffect, useState } from "react";
+import { MaterialReactTable } from "material-react-table";
+import { getPosts, deletePost } from "../../../services/auth.service";
+import {
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  Snackbar,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { IonPage, IonContent } from "@ionic/react";
+import Navbar from "../../../components/Navbar/Navbar";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const PostPage: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -42,7 +43,7 @@ const PostPage: React.FC = () => {
         setSnackbarMessage("Postingan berhasil dihapus!");
         setOpenSnackbar(true);
         setOpenDeleteDialog(false);
-        
+
         // Refresh daftar postingan setelah penghapusan
         const postsData = await getPosts();
         setPosts(postsData);
@@ -64,44 +65,43 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
+      {" "}
       <IonContent className="ion-padding">
         <MaterialReactTable
           columns={[
             {
-              accessorKey: 'name',
-              header: 'Nama Pengguna',
-              Cell: ({ cell }) => cell.getValue()?.toString() || '-'
+              accessorKey: "name",
+              header: "Nama Pengguna",
+              Cell: ({ cell }) => cell.getValue()?.toString() || "-",
             },
             {
-              accessorKey: 'judul',
-              header: 'Judul Postingan',
+              accessorKey: "judul",
+              header: "Judul Postingan",
             },
             {
-              accessorKey: 'pertanyaan',
-              header: 'Pertanyaan',
+              accessorKey: "pertanyaan",
+              header: "Pertanyaan",
             },
             {
-              accessorKey: 'body',
-              header: 'Komentar',
-              
+              accessorKey: "body",
+              header: "Komentar",
             },
             {
-              accessorKey: 'createAt',
-              header: 'Dibuat Pada',
+              accessorKey: "createAt",
+              header: "Dibuat Pada",
               Cell: ({ cell }) => {
                 const date = cell.getValue() as Date;
-                return date ? date.toLocaleString() : '-';
-              }
+                return date ? date.toLocaleString() : "-";
+              },
             },
             {
-              accessorKey: 'view',
-              header: 'Views',
+              accessorKey: "view",
+              header: "Views",
             },
             {
-              id: 'delete',
-              header: 'Aksi',
+              id: "delete",
+              header: "Aksi",
               Cell: ({ row }) => (
                 <IconButton
                   onClick={() => handleOpenDeleteDialog(row.original.id)}
@@ -142,7 +142,7 @@ const PostPage: React.FC = () => {
           message={snackbarMessage}
         />
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 
