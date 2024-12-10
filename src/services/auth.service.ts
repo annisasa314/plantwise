@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, deleteDoc, doc, updateDoc, addDoc } from 'firebase/firestore';
 
 // const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -75,5 +75,121 @@ export const getTanamanData = async (jenis?: string, musim?: string, searchQuery
     console.error('Error getting documents: ', error);
     return [];
   }
+};
+
+const getUserCount = async () => {
+  const usersCollection = collection(db, "users");
+  const q = query(usersCollection, where("role", "==", "user"));
+  const snapshot = await getDocs(q);
+  return snapshot.size; // Mengembalikan jumlah dokumen di koleksi users
+};
+
+const getPostCount = async () => {
+  const postsCollection = collection(db, "posts");
+  const snapshot = await getDocs(postsCollection);
+  return snapshot.size; // Mengembalikan jumlah dokumen di koleksi posts
+};
+
+const getTutorialCount = async () => {
+  const tutorialsCollection = collection(db, "tutorials");
+  const snapshot = await getDocs(tutorialsCollection);
+  return snapshot.size; // Mengembalikan jumlah dokumen di koleksi tutorials
+};
+
+const getPlantingScheduleCount = async () => {
+  const scheduleCollection = collection(db, "jadwal_tanam");
+  const snapshot = await getDocs(scheduleCollection);
+  return snapshot.size; // Mengembalikan jumlah dokumen di koleksi jadwal_tanam
+};
+
+const getUsers = async () => {
+  const usersCollection = collection(db, "users");
+  const q = query(usersCollection, where("role", "==", "user")); // Filter berdasarkan role = user
+  const snapshot = await getDocs(q);
+  
+  const users = snapshot.docs.map(doc => ({
+    id: doc.id,
+    name: doc.data().name,
+    email: doc.data().email,
+    createdAt: doc.data().createdAt.toDate().toLocaleString() // Konversi ke string yang lebih mudah dibaca
+  }));
+
+  return users;
+};
+
+const deleteUser = async (userId: string) => {
+  const userDocRef = doc(db, "users", userId);
+  await deleteDoc(userDocRef); // Menghapus data pengguna berdasarkan ID
+};
+
+// Fungsi untuk mengambil semua data jadwal tanam
+export const getJadwalTanam = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'jadwal_tanam'));
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching data: ', error);
+    throw new Error('Gagal mengambil data');
+  }
+};
+
+// Fungsi untuk menghapus jadwal tanam berdasarkan id
+export const deleteJadwalTanam = async (id: string) => {
+  try {
+    await deleteDoc(doc(db, 'jadwal_tanam', id));
+  } catch (error) {
+    console.error('Error deleting document: ', error);
+    throw new Error('Gagal menghapus data');
+  }
+};
+
+// Fungsi untuk memperbarui data jadwal tanam
+export const updateJadwalTanam = async (id: string, updatedData: any) => {
+  try {
+    const jadwalRef = doc(db, 'jadwal_tanam', id);
+    await updateDoc(jadwalRef, updatedData);
+  } catch (error) {
+    console.error('Error updating document: ', error);
+    throw new Error('Gagal memperbarui data');
+  }
+};
+
+export const createJadwalTanam = async (newJadwal: any) => {
+  try {
+    // Referensi ke koleksi jadwal_tanam di Firestore
+    const jadwalCollectionRef = collection(db, 'jadwal_tanam');
+    
+    // Menambahkan dokumen baru ke koleksi
+    const docRef = await addDoc(jadwalCollectionRef, newJadwal);
+
+    console.log('Jadwal Tanam berhasil ditambahkan dengan ID: ', docRef.id);
+    return docRef.id;  // Mengembalikan ID dokumen yang baru ditambahkan
+  } catch (error) {
+    console.error('Error menambahkan jadwal tanam: ', error);
+    throw new Error('Gagal menambahkan jadwal tanam');
+  }
+};
+
+
+export const getPosts = async () => {
+  const postsRef = collection(db, 'postingan');
+  const postsSnapshot = await getDocs(postsRef);
+  const postsData = postsSnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+  return postsData;
+};
+
+// Delete post
+export const deletePost = async (postId: string) => {
+  const postRef = doc(db, 'postingan', postId);
+  await deleteDoc(postRef);
+};
+
+export {
+  getUserCount,
+  getPostCount,
+  getTutorialCount,
+  getPlantingScheduleCount,
+  getUsers,
+  deleteUser
 };
 
