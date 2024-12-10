@@ -14,7 +14,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <IonToolbar className="shadow-lg">
           <Navbar />
         </IonToolbar>
-        <IonContent fullscreen>{children}</IonContent>
+        <IonContent id="main-content" fullscreen>
+          {children}
+        </IonContent>
       </IonPage>
     </>
   );

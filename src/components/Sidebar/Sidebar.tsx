@@ -1,20 +1,18 @@
+import React, { useState } from "react";
 import {
   IonButton,
   IonButtons,
   IonCol,
   IonContent,
-  IonHeader,
-  IonIcon,
   IonMenu,
   IonText,
-  IonToolbar,
+  IonIcon,
 } from "@ionic/react";
-import { useState } from "react";
 import Cookies from "js-cookie";
-import "./Sidebar.css";
 import { CustomAvatar } from "../CustomAvatar/CustomAvatar";
 import { TUser } from "../../types/user.type";
 import { useIonRouter } from "@ionic/react";
+import { menu } from "ionicons/icons"; // Import hamburger icon
 
 interface SidebarProps {
   contentId: string;
@@ -93,12 +91,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ contentId }) => {
                   fill="clear"
                   className="flex items-center justify-start px-4"
                 >
-                  <CustomAvatar
-                    src={user.photoURL ?? ""}
-                    name={user.name}
-                    //   className="mr-3"
-                  />
-                  {/* <IonText>Hi, {user.name}!</IonText> */}
+                  <CustomAvatar src={user.photoURL ?? ""} name={user.name} />
                 </IonButton>
                 <IonButton
                   href="/logout"

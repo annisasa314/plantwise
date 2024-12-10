@@ -8,7 +8,7 @@ import {
   logOutOutline,
 } from "ionicons/icons";
 import { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useHistory } from "react-router-dom"; // Import useHistory for navigation
 
 export const AdminSidebar: React.FC<{
   isOpen: boolean;
@@ -17,11 +17,14 @@ export const AdminSidebar: React.FC<{
 }> = ({ isOpen, toggleSidebar, onLogout }) => {
   const [isForumDropdownOpen, setIsForumDropdownOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const history = useHistory(); // Hook for navigation
 
   const handleLogout = () => {
     if (onLogout) {
       onLogout();
     }
+    // Redirect to login page after logout
+    history.push("/admin");
     setActiveMenu("logout");
   };
 

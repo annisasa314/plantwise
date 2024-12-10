@@ -27,8 +27,8 @@ export const Navitems: React.FC = () => {
   ];
 
   return (
-    <IonToolbar className="navbar">
-      <IonButtons slot="start" className="navbar__logo">
+    <IonToolbar className="navbar pl-16 pr-16">
+      <IonButtons slot="start" className="navbar__logo p-1">
         <img src="/logo.png" alt="Plantwise Logo" className="logo-img" />
       </IonButtons>
 
@@ -65,7 +65,7 @@ export const Navitems: React.FC = () => {
             <IonButton
               href="/signup"
               className="navbar__button"
-              color="dark"
+              color="primary"
               fill="solid"
               shape="round"
             >
