@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { IonIcon } from "@ionic/react";
-import { arrowDownCircleOutline, closeCircleOutline } from "ionicons/icons";
+import {
+  arrowDownCircleOutline,
+  chatbubbleEllipsesOutline,
+  closeCircleOutline,
+  leafOutline,
+} from "ionicons/icons";
 import ChatbotIcon from "../../components/Bot/ChatbotIcon";
 import ChatMessage from "../../components/Bot/ChatMessage";
 import ChatForm from "../../components/Bot/ChatForm";
@@ -17,17 +22,60 @@ const Chatbot: React.FC = () => {
   const chatBodyRef = useRef<HTMLDivElement>(null);
 
   const generateBotResponse = async (history: ChatMessageType[]) => {
-    const lastMessage = history[history.length - 1]?.text?.toLowerCase();
+    const lastMessage = history[history.length - 1]?.text?.toLowerCase() || "";
 
-    // Filter to ensure the question is related to gardening
-    const isRelevant =
-      lastMessage.includes("bercocok tanam") ||
-      lastMessage.includes("berkebun") ||
-      lastMessage.includes("tanam") ||
-      lastMessage.includes("pekarangan") ||
-      lastMessage.includes("sayuran") ||
-      lastMessage.includes("tumbuhan") ||
-      lastMessage.includes("kebun");
+    const keywords = [
+      // Core Themes
+      "bercocok tanam",
+      "berkebun",
+      "tanam",
+      "pekarangan",
+      "sayuran",
+      "tumbuhan",
+      "kebun",
+
+      // Platform-Specific Keywords
+      "plantwise",
+      "edukasi pertanian",
+      "pertanian rumahan",
+      "ketahanan pangan",
+
+      // Activity-Related
+      "menanam",
+      "budidaya",
+      "pertanian",
+      "berkebun pemula",
+
+      // Feature-Related
+      "tutorial bertanam",
+      "jadwal tanam",
+      "forum pertanian",
+      "kalkulator tanam",
+
+      // Goal-Oriented
+      "pangan segar",
+      "ramah lingkungan",
+      "sustainable",
+      "pertanian berkelanjutan",
+
+      // Technical Aspects
+      "jarak tanam",
+      "benih",
+      "bibit",
+      "perawatan tanaman",
+      "hama",
+      "penyakit tanaman",
+
+      // Contextual
+      "rumah",
+      "lahan sempit",
+      "urban farming",
+      "pertanian perkotaan",
+    ];
+
+    const isRelevant = keywords.some((keyword) =>
+      lastMessage.includes(keyword)
+    );
 
     if (!isRelevant) {
       setChatHistory((prev) => [
@@ -40,10 +88,8 @@ const Chatbot: React.FC = () => {
       return;
     }
 
-    // Set loading state
     setIsLoading(true);
 
-    // Format chat history for API request
     const formattedHistory = history.map(({ role, text }) => ({
       role,
       parts: [{ text }],
@@ -51,40 +97,53 @@ const Chatbot: React.FC = () => {
 
     const requestOptions: RequestInit = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        // Add any additional headers like authorization if needed
+      },
       body: JSON.stringify({ contents: formattedHistory }),
     };
 
     try {
-      // Make the API call to get the bot's response
       const response = await fetch(
         import.meta.env.VITE_API_URL,
         requestOptions
       );
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.error.message || "Something went wrong!");
 
-      // Clean and update chat history with bot's response
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Use .json() directly instead of .text() and then parsing
+      const data = await response.json();
+
+      // Add more robust checking of the response structure
+      if (
+        !data ||
+        !data.candidates ||
+        !data.candidates[0]?.content?.parts?.[0]?.text
+      ) {
+        throw new Error("Invalid API response structure");
+      }
+
       const apiResponseText = data.candidates[0].content.parts[0].text
         .replace(/\\(.?)\\*/g, "$1")
         .trim();
 
-      // Update history and clear loading state
       setChatHistory((prev) => [
         ...prev,
         { role: "model", text: apiResponseText },
       ]);
-      setIsLoading(false);
     } catch (error) {
-      console.error(error);
+      console.error("API Response Error:", error);
       setChatHistory((prev) => [
         ...prev,
         {
           role: "model",
-          text: "Maaf, terjadi kesalahan. Silakan coba lagi nanti.",
+          text: "Maaf, terjadi kesalahan dalam memproses permintaan. Silakan coba lagi.",
         },
       ]);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -110,8 +169,8 @@ const Chatbot: React.FC = () => {
         className="toggle-button"
       >
         <IonIcon
-          icon={showChatbot ? closeCircleOutline : arrowDownCircleOutline}
-          className="text-gray-600 text-3xl"
+          icon={showChatbot ? leafOutline : chatbubbleEllipsesOutline}
+          className="text-green-600 text-3xl"
         />
       </button>
 
