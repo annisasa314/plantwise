@@ -14,7 +14,7 @@ import { getCurrentUser } from "../../services/auth";
 import { updateProfile, updatePassword } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { TUser } from "../../types/user.type";
+import { TUser } from "../../type/user.type";
 
 const Profile: React.FC = () => {
   const [user, setUser] = useState<TUser | null>(null);

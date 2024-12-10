@@ -10,7 +10,7 @@ import {
 } from "@ionic/react";
 import Cookies from "js-cookie";
 import { CustomAvatar } from "../CustomAvatar/CustomAvatar";
-import { TUser } from "../../types/user.type";
+import { TUser } from "../../type/user.type";
 import { useIonRouter } from "@ionic/react";
 import { menu } from "ionicons/icons"; // Import hamburger icon
 

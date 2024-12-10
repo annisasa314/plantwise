@@ -1,6 +1,6 @@
 import { db } from "../../firebase";
-import { TUpdateProfileForm } from "../types/form.type";
-import { TUser } from "../types/user.type";
+import { TUpdateProfileForm } from "../type/form.type";
+import { TUser } from "../type/user.type";
 // import { uploadAndGetImgUrl } from "@/utils/image";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import Cookies from "js-cookie";

@@ -7,8 +7,8 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 
 import { auth, db } from "../../firebase";
 
-import { TLoginForm, TSignupForm } from "../types/form.type";
-import { TUser } from "../types/user.type";
+import { TLoginForm, TSignupForm } from "../type/form.type";
+import { TUser } from "../type/user.type";
 
 export const signup = async (values: TSignupForm) => {
   const userCredentials = await createUserWithEmailAndPassword(

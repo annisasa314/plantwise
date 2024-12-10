@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { loginWithEmailAndPassword } from "../services/auth.service";
-import { TLoginForm } from "../types/form.type";
-import { TUser } from "../types/user.type";
+import { TLoginForm } from "../type/form.type";
+import { TUser } from "../type/user.type";
 import Cookies from "js-cookie";
 
 export const useLogin = () => {
