@@ -48,103 +48,91 @@ export const AdminLogin: React.FC = () => {
     }
   };
 
-  if (user) {
-    return <Redirect to="/admin-dashboard" />; // Redirect if user is logged in
-  }
+  //   if (user) {
+  //     return <Redirect to="/admin/dashboard" />; // Redirect if user is logged in
+  //   }
 
   return (
     <IonPage>
       <IonContent className="ion-padding admin-login-content">
-        <IonGrid className="login-grid">
-          <IonRow>
-            <IonCol size="12" sizeMd="6">
-              <div className="header-container">
-                <h2 className="ion-no-margin title">Admin Login</h2>
-                <p className="subtitle">Login to Admin Panel</p>
-              </div>
+        <div className="p-24">
+          {" "}
+          <div className="header-container">
+            <h2 className="ion-no-margin title">Admin Login</h2>
+            <p className="subtitle p-4">Login to Admin Panel</p>
+          </div>
+          <IonCard className="login-card shadow-5xl">
+            <IonCardContent>
+              <form onSubmit={handleSubmit(handleAdminLogin)}>
+                <Controller
+                  control={control}
+                  name="email"
+                  rules={{
+                    required: "Please enter email address",
+                    pattern: {
+                      value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
+                      message: "Please enter a valid email address",
+                    },
+                  }}
+                  render={({ field: { onChange, value }, fieldState }) => (
+                    <IonItem lines="none" className="input-container">
+                      <IonIcon icon={mailOutline} slot="start" />
+                      <IonInput
+                        type="email"
+                        placeholder="Enter your email"
+                        value={value}
+                        onIonChange={onChange}
+                        errorText={fieldState.error?.message}
+                        required
+                      />
+                    </IonItem>
+                  )}
+                />
 
-              <IonCard className="login-card">
-                <IonCardContent>
-                  <form onSubmit={handleSubmit(handleAdminLogin)}>
-                    <Controller
-                      control={control}
-                      name="email"
-                      rules={{
-                        required: "Please enter email address",
-                        pattern: {
-                          value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
-                          message: "Please enter a valid email address",
-                        },
-                      }}
-                      render={({ field: { onChange, value }, fieldState }) => (
-                        <IonItem lines="none" className="input-container">
-                          <IonIcon icon={mailOutline} slot="start" />
-                          <IonInput
-                            type="email"
-                            placeholder="Enter your email"
-                            value={value}
-                            onIonChange={onChange}
-                            errorText={fieldState.error?.message}
-                            required
-                          />
-                        </IonItem>
-                      )}
-                    />
+                <Controller
+                  control={control}
+                  name="password"
+                  rules={{
+                    required: "Please enter password",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                  }}
+                  render={({ field: { onChange, value }, fieldState }) => (
+                    <IonItem lines="none" className="input-container">
+                      <IonIcon icon={lockClosedOutline} slot="start" />
+                      <IonInput
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        value={value}
+                        onIonChange={onChange}
+                        errorText={fieldState.error?.message}
+                        required
+                      >
+                        <IonIcon
+                          icon={showPassword ? eye : eyeOff}
+                          className="password-toggle-icon"
+                          onClick={() => setShowPassword(!showPassword)}
+                        />
+                      </IonInput>
+                    </IonItem>
+                  )}
+                />
 
-                    <Controller
-                      control={control}
-                      name="password"
-                      rules={{
-                        required: "Please enter password",
-                        minLength: {
-                          value: 6,
-                          message: "Password must be at least 6 characters",
-                        },
-                      }}
-                      render={({ field: { onChange, value }, fieldState }) => (
-                        <IonItem lines="none" className="input-container">
-                          <IonIcon icon={lockClosedOutline} slot="start" />
-                          <IonInput
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Enter your password"
-                            value={value}
-                            onIonChange={onChange}
-                            errorText={fieldState.error?.message}
-                            required
-                          >
-                            <IonIcon
-                              icon={showPassword ? eye : eyeOff}
-                              className="password-toggle-icon"
-                              onClick={() => setShowPassword(!showPassword)}
-                            />
-                          </IonInput>
-                        </IonItem>
-                      )}
-                    />
-
-                    <IonButton
-                      expand="block"
-                      type="submit"
-                      color="primary"
-                      className="button-container"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? <IonSpinner name="circles" /> : "Login"}
-                    </IonButton>
-                  </form>
-                </IonCardContent>
-              </IonCard>
-            </IonCol>
-
-            <IonCol size="20" sizeMd="6" className="image-column">
-              <IonImg
-                src="https://images.unsplash.com/photo-1472653525502-fc569e405a74?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="LoginImage"
-                className="login-image"
-              />
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+                <IonButton
+                  expand="block"
+                  type="submit"
+                  color="primary"
+                  className="button-container"
+                  disabled={isLoading}
+                >
+                  {isLoading ? <IonSpinner name="circles" /> : "Login"}
+                </IonButton>
+              </form>
+            </IonCardContent>
+          </IonCard>
+        </div>
 
         <IonToast
           isOpen={showToast}
