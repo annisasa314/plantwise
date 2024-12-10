@@ -1,6 +1,6 @@
 import { useToast } from "../hooks/useToast";
 import { Redirect } from "react-router";
-import { TUser } from "../types/user.type";
+import { TUser } from "../type/user.type";
 import Cookies from "js-cookie";
 
 interface AdminOnly {

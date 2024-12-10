@@ -1,7 +1,7 @@
 import { useToast } from "../hooks/useToast";
 import { Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
-import { TUser } from "../types/user.type";
+import { TUser } from "../type/user.type";
 
 interface RequireAuthProps {
   children: React.ReactNode;
