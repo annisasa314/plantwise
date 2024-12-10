@@ -208,7 +208,7 @@ export const deletePost = async (postId: string): Promise<void> => {
   }
 };
 
-const commentCollection = collection(db, 'comments');
+const commentCollection = collection(db, 'komentar');
 
 export const getComments = async () => {
   const querySnapshot = await getDocs(commentCollection);
@@ -219,7 +219,7 @@ export const getComments = async () => {
 };
 
 export const deleteComment = async (id: string) => {
-  const commentDoc = doc(db, 'comments', id);
+  const commentDoc = doc(db, 'komentar', id);
   await deleteDoc(commentDoc);
 };
 
