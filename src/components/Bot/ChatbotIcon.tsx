@@ -1,22 +1,24 @@
-const ChatbotIcon = () => {
+import React from "react";
+import { IonIcon } from "@ionic/react";
+import { chatbubbleEllipsesOutline } from "ionicons/icons";
+import { useChatbot } from "./ChatbotProvider";
+
+const ChatbotFloatingIcon: React.FC = () => {
+  const { isChatbotOpen, toggleChatbot } = useChatbot();
+
+  if (isChatbotOpen) return null; // Sembunyikan ikon jika chatbot terbuka
+
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="50"
-      height="50"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-green-700"
+    <button
+      onClick={toggleChatbot}
+      className="fixed bottom-4 right-4 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all"
     >
-      <path d="M12 3a6 6 0 0 0-6 6c0 3.314 2.686 4 6 4s6-.686 6-4a6 6 0 0 0-6-6z" />
-      <path d="M12 15c-3.314 0-6 .686-6 4s2.686 4 6 4 6-.686 6-4-2.686-4-6-4z" />
-      <path d="M16 11.5c0 1.38-1.12 2.5-2.5 2.5S11 12.88 11 11.5 12.12 9 13.5 9s2.5 1.12 2.5 2.5z" />
-    </svg>
+      <IonIcon
+        icon={chatbubbleEllipsesOutline}
+        className="text-2xl text-center"
+      />
+    </button>
   );
 };
 
-export default ChatbotIcon;
+export default ChatbotFloatingIcon;

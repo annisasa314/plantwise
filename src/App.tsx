@@ -49,6 +49,8 @@ import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
+import { AdminLayout } from "./layouts/AdminLayout";
+import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
 
 setupIonicReact();
 
