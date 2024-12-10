@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase";
 import Navbar from "../../components/Navbar/Navbar";
-import { IonContent } from "@ionic/react";
+import { IonContent, IonSearchbar } from "@ionic/react";
 
 type Section = {
   heading: string;
@@ -19,6 +19,7 @@ type Tutorial = {
 
 const Panduan: React.FC = () => {
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedTutorial, setSelectedTutorial] = useState<Tutorial | null>(
     null
   );
@@ -48,6 +49,14 @@ const Panduan: React.FC = () => {
     <IonContent>
       <Navbar />
       <div className="bg-gray-100 py-12 p-36">
+        <IonSearchbar
+          value={searchQuery}
+          debounce={500}
+          onIonInput={(e) => setSearchQuery(e.detail.value!)}
+          placeholder="Cari Tanaman..."
+          className="rounded-lg shadow-sm"
+        />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {selectedTutorial ? (
             // If a tutorial is selected, show the tutorial details
