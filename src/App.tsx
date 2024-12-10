@@ -32,6 +32,7 @@ import JadwalAdmin from "./pages/Admin/Jadwal/Jadwal";
 import EditJadwal from "./pages/Admin/Jadwal/EditJadwal";
 import AddJadwal from "./pages/Admin/Jadwal/TambahJadwal";
 import PostPage from "./pages/Admin/Forum/Post";
+import CommentPage from "./pages/Admin/Forum/Komentar";
 
 /**
  * Ionic Dark Mode
@@ -49,7 +50,6 @@ import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
-import { AdminLayout } from "./layouts/AdminLayout";
 import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
 
 setupIonicReact();
@@ -83,6 +83,7 @@ const App: React.FC = () => (
           <Route exact path="/admin/jadwal" component={JadwalAdmin} />
           <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
           <Route exact path="/tambah-jadwal" component={AddJadwal} />
+          <Route exact path="/post-admin" component={PostPage} />
           {/* <Route exact path="/admin/forum/komentar" component={} /> */}
           <Route exact path="/admin/forum/post" component={PostPage} />
 
