@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import Cookies from "js-cookie";
 import { CustomAvatar } from "../CustomAvatar/CustomAvatar";
-import { TUser } from "../../types/user.type";
+import { TUser } from "../../type/user.type";
 
 export const Navitems: React.FC = () => {
   const router = useIonRouter();

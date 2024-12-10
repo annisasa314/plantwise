@@ -26,8 +26,8 @@ import {
   loginWithEmailAndPassword,
   loginWithGoogle,
 } from "../../services/auth.service";
-import { TUser } from "../../types/user.type";
-import { TLoginForm } from "../../types/form.type";
+import { TUser } from "../../type/user.type";
+import { TLoginForm } from "../../type/form.type";
 import { eye, eyeOff } from "ionicons/icons";
 import "./Login.css";
 

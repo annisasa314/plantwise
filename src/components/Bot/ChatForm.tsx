@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChatFormProps, ChatMessageType } from "../../types/chatMessage.type";
+import { ChatFormProps, ChatMessageType } from "../../type/chatMessage.type";
 import { sendOutline } from "ionicons/icons";
 import { IonIcon } from "@ionic/react";
 

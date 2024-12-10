@@ -22,8 +22,8 @@ import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { Redirect } from "react-router";
 import { loginWithEmailAndPassword } from "../../../services/auth.service"; // Import login function
-import { TUser } from "../../../types/user.type";
-import { TLoginForm } from "../../../types/form.type";
+import { TUser } from "../../../type/user.type";
+import { TLoginForm } from "../../../type/form.type";
 import { eye, eyeOff } from "ionicons/icons";
 import { useAdminLogin } from "../../../hooks/useAdminLogin"; // Custom hook for admin login
 
