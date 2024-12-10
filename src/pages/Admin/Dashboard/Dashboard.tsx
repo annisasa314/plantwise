@@ -20,6 +20,7 @@ import {
   getPlantingScheduleCount,
 } from "../../../services/auth.service";
 import Navbar from "../../../components/Navbar/Navbar";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const Dashboard: React.FC = () => {
   const [userCount, setUserCount] = useState<number | null>(null);
@@ -44,8 +45,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
       <IonContent>
         {userCount === null ||
         postCount === null ||
@@ -100,7 +100,7 @@ const Dashboard: React.FC = () => {
           </IonGrid>
         )}
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 
