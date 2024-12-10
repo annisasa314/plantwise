@@ -45,6 +45,20 @@ const Panduan: React.FC = () => {
     return acc;
   }, {} as Record<string, Tutorial[]>);
 
+  // Filter tutorials based on search query
+  const filteredTutorials = Object.keys(groupedTutorials).reduce(
+    (acc, category) => {
+      const filteredByCategory = groupedTutorials[category].filter((tutorial) =>
+        tutorial.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (filteredByCategory.length > 0) {
+        acc[category] = filteredByCategory;
+      }
+      return acc;
+    },
+    {} as Record<string, Tutorial[]>
+  );
+
   return (
     <IonContent>
       <Navbar />
@@ -54,12 +68,11 @@ const Panduan: React.FC = () => {
           debounce={500}
           onIonInput={(e) => setSearchQuery(e.detail.value!)}
           placeholder="Cari Tanaman..."
-          className="rounded-lg shadow-sm"
+          className="rounded-lg shadow-sm pb-16 pr-8 pl-8"
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {selectedTutorial ? (
-            // If a tutorial is selected, show the tutorial details
             <div className="bg-white shadow-lg rounded-lg p-6">
               <h2 className="text-2xl font-bold mb-4">
                 {selectedTutorial.title}
@@ -94,13 +107,13 @@ const Panduan: React.FC = () => {
             </div>
           ) : (
             // If no tutorial is selected, show the list of tutorials grouped by category
-            Object.keys(groupedTutorials).map((category) => (
+            Object.keys(filteredTutorials).map((category) => (
               <div key={category} className="mb-12">
                 <h2 className="text-xl font-semibold text-[#2f4b26] mb-4">
                   {"Panduan Tanam " + category}
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {groupedTutorials[category].map((tutorial) => (
+                  {filteredTutorials[category].map((tutorial) => (
                     <div key={tutorial.id} className="mb-6">
                       <div
                         className="bg-white shadow-md rounded-md p-4 cursor-pointer"
