@@ -18,7 +18,6 @@ type ChatMessageType = {
 
 const Chatbot: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<ChatMessageType[]>([]);
-  //   const [showChatbot, setShowChatbot] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const { isChatbotOpen, toggleChatbot } = useChatbot();
