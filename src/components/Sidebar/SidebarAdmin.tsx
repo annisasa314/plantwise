@@ -8,6 +8,7 @@ import {
   logOutOutline,
 } from "ionicons/icons";
 import { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 export const AdminSidebar: React.FC<{
   isOpen: boolean;
@@ -51,52 +52,64 @@ export const AdminSidebar: React.FC<{
         <nav className="flex-1 py-4">
           <ul>
             {/* Dashboard */}
-            <li
-              onClick={() => setActiveMenu("dashboard")}
-              className={`px-4 py-2 flex items-center cursor-pointer transition 
-                ${isOpen ? "justify-start" : "justify-center"}
-                ${
-                  activeMenu === "dashboard"
-                    ? "bg-[#2f4b26]"
-                    : "hover:bg-[#2f4b26]"
-                }`}
-            >
-              <IonIcon icon={homeOutline} className="w-6 h-6 mr-3 text-white" />
-              {isOpen && <span className="text-white">Dashboard</span>}
-            </li>
+            <Link to="/admin/dashboard">
+              <li
+                onClick={() => setActiveMenu("dashboard")}
+                className={`px-4 py-2 flex items-center cursor-pointer transition 
+                  ${isOpen ? "justify-start" : "justify-center"}
+                  ${
+                    activeMenu === "dashboard"
+                      ? "bg-[#2f4b26]"
+                      : "hover:bg-[#2f4b26]"
+                  }`}
+              >
+                <IonIcon
+                  icon={homeOutline}
+                  className="w-6 h-6 mr-3 text-white"
+                />
+                {isOpen && <span className="text-white">Dashboard</span>}
+              </li>
+            </Link>
 
             {/* Panduan */}
-            <li
-              onClick={() => setActiveMenu("panduan")}
-              className={`px-4 py-2 flex items-center cursor-pointer transition
-                ${isOpen ? "justify-start" : "justify-center"}
-                ${
-                  activeMenu === "panduan"
-                    ? "bg-[#2f4b26]"
-                    : "hover:bg-[#2f4b26]"
-                }`}
-            >
-              <IonIcon icon={bookOutline} className="w-6 h-6 mr-3 text-white" />
-              {isOpen && <span className="text-white">Panduan</span>}
-            </li>
+            <Link to="/admin/panduan">
+              <li
+                onClick={() => setActiveMenu("panduan")}
+                className={`px-4 py-2 flex items-center cursor-pointer transition
+                  ${isOpen ? "justify-start" : "justify-center"}
+                  ${
+                    activeMenu === "panduan"
+                      ? "bg-[#2f4b26]"
+                      : "hover:bg-[#2f4b26]"
+                  }`}
+              >
+                <IonIcon
+                  icon={bookOutline}
+                  className="w-6 h-6 mr-3 text-white"
+                />
+                {isOpen && <span className="text-white">Panduan</span>}
+              </li>
+            </Link>
 
             {/* Jadwal */}
-            <li
-              onClick={() => setActiveMenu("jadwal")}
-              className={`px-4 py-2 flex items-center cursor-pointer transition
-                ${isOpen ? "justify-start" : "justify-center"}
-                ${
-                  activeMenu === "jadwal"
-                    ? "bg-[#2f4b26]"
-                    : "hover:bg-[#2f4b26]"
-                }`}
-            >
-              <IonIcon
-                icon={calendarOutline}
-                className="w-6 h-6 mr-3 text-white"
-              />
-              {isOpen && <span className="text-white">Jadwal</span>}
-            </li>
+            <Link to="/admin/jadwal">
+              <li
+                onClick={() => setActiveMenu("jadwal")}
+                className={`px-4 py-2 flex items-center cursor-pointer transition
+                  ${isOpen ? "justify-start" : "justify-center"}
+                  ${
+                    activeMenu === "jadwal"
+                      ? "bg-[#2f4b26]"
+                      : "hover:bg-[#2f4b26]"
+                  }`}
+              >
+                <IonIcon
+                  icon={calendarOutline}
+                  className="w-6 h-6 mr-3 text-white"
+                />
+                {isOpen && <span className="text-white">Jadwal</span>}
+              </li>
+            </Link>
 
             {/* Forum Dropdown */}
             <li>
@@ -132,28 +145,32 @@ export const AdminSidebar: React.FC<{
 
               {isOpen && isForumDropdownOpen && (
                 <ul className="bg-[#3e885b] py-2">
-                  <li
-                    onClick={() => setActiveMenu("post")}
-                    className={`px-8 py-2 text-white cursor-pointer 
-                      ${
-                        activeMenu === "post"
-                          ? "bg-[#2f4b26]"
-                          : "hover:bg-[#2f4b26]"
-                      }`}
-                  >
-                    Post
-                  </li>
-                  <li
-                    onClick={() => setActiveMenu("komentar")}
-                    className={`px-8 py-2 text-white cursor-pointer 
-                      ${
-                        activeMenu === "komentar"
-                          ? "bg-[#2f4b26]"
-                          : "hover:bg-[#2f4b26]"
-                      }`}
-                  >
-                    Komentar
-                  </li>
+                  <Link to="/admin/forum/post">
+                    <li
+                      onClick={() => setActiveMenu("post")}
+                      className={`px-8 py-2 text-white cursor-pointer 
+                        ${
+                          activeMenu === "post"
+                            ? "bg-[#2f4b26]"
+                            : "hover:bg-[#2f4b26]"
+                        }`}
+                    >
+                      Post
+                    </li>
+                  </Link>
+                  <Link to="/admin/forum/komentar">
+                    <li
+                      onClick={() => setActiveMenu("komentar")}
+                      className={`px-8 py-2 text-white cursor-pointer 
+                        ${
+                          activeMenu === "komentar"
+                            ? "bg-[#2f4b26]"
+                            : "hover:bg-[#2f4b26]"
+                        }`}
+                    >
+                      Komentar
+                    </li>
+                  </Link>
                 </ul>
               )}
             </li>
