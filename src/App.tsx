@@ -76,14 +76,14 @@ const App: React.FC = () => (
           <Route exact path="/jadwal" component={Jadwal} />
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
+          {/* <Route exact path="/admin/panduan" component={UserPage} /> */}
           <Route exact path="/add-panduan" component={PanduanForm} />
           <Route exact path="/admin/dashboard" component={Dashboard} />
-
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/user" component={UserPage} />
-          <Route exact path="/jadwal-admin" component={JadwalAdmin} />
+          <Route exact path="/admin/user" component={UserPage} />
+          <Route exact path="/admin/jadwal" component={JadwalAdmin} />
           <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
           <Route exact path="/tambah-jadwal" component={AddJadwal} />
+          {/* <Route exact path="/admin/forum" component={} /> */}
           <Route exact path="/post-admin" component={PostPage} />
 
           {/* Default redirect */}
