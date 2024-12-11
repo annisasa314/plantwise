@@ -50,10 +50,12 @@ import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
-import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
 import AdminLogin from "./pages/Admin/Login/AdminLogin";
 import AdminTutorials from "./pages/Admin/Panduan/Panduan";
 import EditTutorial from "./pages/Admin/Panduan/EditPanduan";
+import { RequireAuth } from "./middleware/auth.middleware";
+import { AdminOnly } from "./middleware/admin.middleware";
+import { Forum } from "@mui/icons-material";
 
 setupIonicReact();
 
@@ -75,30 +77,87 @@ const App: React.FC = () => (
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/panduan" component={Panduan} />
-          <Route exact path="/jadwal" component={Jadwal} />
-          <Route exact path="/kalkulator" component={Calculator} />
-          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/profile">
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          </Route>
+          <Route exact path="/panduan">
+            <RequireAuth>
+              <Panduan />
+            </RequireAuth>
+          </Route>
+          <Route exact path="/jadwal">
+            <RequireAuth>
+              <Jadwal />
+            </RequireAuth>
+          </Route>
+          <Route exact path="/kalkulator">
+            <RequireAuth>
+              <Calculator />
+            </RequireAuth>
+          </Route>
+          <Route exact path="/forum">
+            <RequireAuth>
+              <Forum />
+            </RequireAuth>
+          </Route>
+
           <Route exact path="/admin" component={AdminLogin} />
-          <Route exact path="/admin/panduan" component={AdminTutorials} />
-          <Route
-            exact
-            path="/admin/panduan/edit/:id"
-            component={EditTutorial}
-          />
+          <Route exact path="/admin/panduan/add">
+            <AdminOnly>
+              <PanduanForm />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/admin/dashboard">
+            <AdminOnly>
+              <Dashboard />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/admin/user">
+            <AdminOnly>
+              <UserPage />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/admin/jadwal">
+            <AdminOnly>
+              <JadwalAdmin />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/edit-jadwal/:id">
+            <AdminOnly>
+              <EditJadwal />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/tambah-jadwal">
+            <AdminOnly>
+              <AddJadwal />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/post-admin">
+            <AdminOnly>
+              <PostPage />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/admin/forum/komentar">
+            <AdminOnly>
+              <CommentPage />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/admin/forum/post">
+            <AdminOnly>
+              <PostPage />
+            </AdminOnly>
+          </Route>
+          <Route exact path="/admin/panduan">
+            <AdminOnly>
+              <AdminTutorials />
+            </AdminOnly>
+          </Route>
           <Route
             path="/admin/panduan/edit/:id"
             component={() => <PanduanForm isEditMode={true} />}
           />
-          <Route exact path="/admin/panduan/add" component={PanduanForm} />
-          <Route exact path="/admin/dashboard" component={Dashboard} />
-          <Route exact path="/admin/user" component={UserPage} />
-          <Route exact path="/admin/jadwal" component={JadwalAdmin} />
-          <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
-          <Route exact path="/tambah-jadwal" component={AddJadwal} />
-          <Route exact path="/post-admin" component={PostPage} />
-          <Route exact path="/admin/forum/komentar" component={CommentPage} />
-          <Route exact path="/admin/forum/post" component={PostPage} />
 
           {/* Default redirect */}
           <Route exact path="/">
