@@ -1,7 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { IonContent, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSpinner, IonGrid, IonRow, IonCol, IonToolbar, IonTitle } from '@ionic/react';
-import { getUserCount, getPostCount, getTutorialCount, getPlantingScheduleCount } from '../../../services/auth.service';
-import Navbar from '../../../components/Navbar/Navbar';
+import React, { useEffect, useState } from "react";
+import {
+  IonContent,
+  IonPage,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonSpinner,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonToolbar,
+  IonTitle,
+} from "@ionic/react";
+import {
+  getUserCount,
+  getPostCount,
+  getTutorialCount,
+  getPlantingScheduleCount,
+} from "../../../services/auth.service";
+import Navbar from "../../../components/Navbar/Navbar";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const Dashboard: React.FC = () => {
   const [userCount, setUserCount] = useState<number | null>(null);
@@ -15,21 +34,26 @@ const Dashboard: React.FC = () => {
       const postCountData = await getPostCount();
       const tutorialCountData = await getTutorialCount();
       const scheduleCountData = await getPlantingScheduleCount();
-      
+
       setUserCount(userCountData);
       setPostCount(postCountData);
       setTutorialCount(tutorialCountData);
       setScheduleCount(scheduleCountData);
     };
-    
+
     fetchData();
   }, []);
 
   return (
-    <IonPage>
-      <Navbar />
-      <IonContent>
-        {userCount === null || postCount === null || tutorialCount === null || scheduleCount === null ? (
+    <AdminLayout>
+      <IonContent className="ion-padding">
+        <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
+          Dashboard
+        </h1>
+        {userCount === null ||
+        postCount === null ||
+        tutorialCount === null ||
+        scheduleCount === null ? (
           <IonSpinner name="crescent" />
         ) : (
           <IonGrid>
@@ -79,7 +103,7 @@ const Dashboard: React.FC = () => {
           </IonGrid>
         )}
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 

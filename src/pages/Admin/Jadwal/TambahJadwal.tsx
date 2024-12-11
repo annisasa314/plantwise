@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
-import { IonPage, IonContent, IonInput, IonLabel, IonButton, IonAlert, IonItem } from '@ionic/react';
-import { createJadwalTanam } from '../../../services/auth.service';  // Asumsi Anda memiliki fungsi createJadwalTanam
-import Navbar from '../../../components/Navbar/Navbar';
+import React, { useState } from "react";
+import {
+  IonPage,
+  IonContent,
+  IonInput,
+  IonLabel,
+  IonButton,
+  IonAlert,
+  IonItem,
+} from "@ionic/react";
+import { createJadwalTanam } from "../../../services/auth.service"; // Asumsi Anda memiliki fungsi createJadwalTanam
+import Navbar from "../../../components/Navbar/Navbar";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const AddJadwal: React.FC = () => {
   const [newJadwal, setNewJadwal] = useState<any>({
-    jenis_tanaman: '',
-    nama_tanaman: '',
-    musim: '',
-    waktu_penanaman: '',
+    jenis_tanaman: "",
+    nama_tanaman: "",
+    musim: "",
+    waktu_penanaman: "",
   });
   const [showAlert, setShowAlert] = useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = useState(false);
@@ -24,33 +33,36 @@ const AddJadwal: React.FC = () => {
   // Handle penyimpanan data baru
   const handleSaveChanges = async () => {
     try {
-      await createJadwalTanam(newJadwal);  // Fungsi untuk menambahkan data baru
-      setShowAlert(true);  // Tampilkan alert sukses
+      await createJadwalTanam(newJadwal); // Fungsi untuk menambahkan data baru
+      setShowAlert(true); // Tampilkan alert sukses
     } catch (error) {
-      console.error('Error adding jadwal tanam:', error);
+      console.error("Error adding jadwal tanam:", error);
     }
   };
 
   // Handle batal (reset form)
   const handleCancel = () => {
     setNewJadwal({
-      jenis_tanaman: '',
-      nama_tanaman: '',
-      musim: '',
-      waktu_penanaman: '',
+      jenis_tanaman: "",
+      nama_tanaman: "",
+      musim: "",
+      waktu_penanaman: "",
     });
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
       <IonContent className="ion-padding">
-        {/* Form untuk menambahkan data */}
+        <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
+          Tambah Post
+        </h1>
         <IonItem>
           <IonLabel position="stacked">Jenis Tanaman</IonLabel>
           <IonInput
             value={newJadwal.jenis_tanaman}
-            onIonChange={(e) => handleInputChange('jenis_tanaman', e.detail.value!)}
+            onIonChange={(e) =>
+              handleInputChange("jenis_tanaman", e.detail.value!)
+            }
           />
         </IonItem>
 
@@ -58,7 +70,9 @@ const AddJadwal: React.FC = () => {
           <IonLabel position="stacked">Nama Tanaman</IonLabel>
           <IonInput
             value={newJadwal.nama_tanaman}
-            onIonChange={(e) => handleInputChange('nama_tanaman', e.detail.value!)}
+            onIonChange={(e) =>
+              handleInputChange("nama_tanaman", e.detail.value!)
+            }
           />
         </IonItem>
 
@@ -66,7 +80,7 @@ const AddJadwal: React.FC = () => {
           <IonLabel position="stacked">Musim</IonLabel>
           <IonInput
             value={newJadwal.musim}
-            onIonChange={(e) => handleInputChange('musim', e.detail.value!)}
+            onIonChange={(e) => handleInputChange("musim", e.detail.value!)}
           />
         </IonItem>
 
@@ -74,12 +88,17 @@ const AddJadwal: React.FC = () => {
           <IonLabel position="stacked">Waktu Tanam</IonLabel>
           <IonInput
             value={newJadwal.waktu_penanaman}
-            onIonChange={(e) => handleInputChange('waktu_penanaman', e.detail.value!)}
+            onIonChange={(e) =>
+              handleInputChange("waktu_penanaman", e.detail.value!)
+            }
           />
         </IonItem>
 
         {/* Tombol konfirmasi */}
-        <IonButton expand="full" onClick={() => setShowConfirmationDialog(true)}>
+        <IonButton
+          expand="full"
+          onClick={() => setShowConfirmationDialog(true)}
+        >
           Konfirmasi Penambahan
         </IonButton>
 
@@ -95,12 +114,12 @@ const AddJadwal: React.FC = () => {
           message="Apakah Anda yakin ingin menambahkan jadwal tanam ini?"
           buttons={[
             {
-              text: 'Batal',
-              role: 'cancel',
+              text: "Batal",
+              role: "cancel",
               handler: () => setShowConfirmationDialog(false),
             },
             {
-              text: 'Ya',
+              text: "Ya",
               handler: () => handleSaveChanges(),
             },
           ]}
@@ -112,10 +131,10 @@ const AddJadwal: React.FC = () => {
           onDidDismiss={() => setShowAlert(false)}
           header="Sukses"
           message="Data jadwal tanam telah berhasil ditambahkan."
-          buttons={['OK']}
+          buttons={["OK"]}
         />
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 

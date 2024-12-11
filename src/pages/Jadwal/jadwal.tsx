@@ -14,7 +14,8 @@ import {
   IonSearchbar,
 } from "@ionic/react";
 import { getTanamanData } from "../../services/auth.service";
-import Navbar from "../../components/Navbar/Navbar";
+import { MainLayout } from "../../layouts/MainLayout";
+import Footer from "../../components/Footer/Footer";
 
 const Jadwal: React.FC = () => {
   const [tanamanList, setTanamanList] = useState<any[]>([]);
@@ -32,14 +33,11 @@ const Jadwal: React.FC = () => {
   }, [jenisFilter, musimFilter, searchQuery]);
 
   return (
-    <IonPage className="bg-gray-50">
-      <IonHeader>
-        <Navbar />
-        <IonToolbar color="primary" className="text-white">
+    <MainLayout>
+      <IonContent>
+        <IonToolbar color="primary" className="text-white pl-2">
           <IonTitle className="font-bold">Jadwal Tanam Ideal</IonTitle>
         </IonToolbar>
-      </IonHeader>
-      <IonContent>
         <div className="p-4 space-y-4">
           {/* Search Bar */}
           <IonSearchbar
@@ -122,8 +120,10 @@ const Jadwal: React.FC = () => {
             </div>
           )}
         </div>
+
+        <Footer />
       </IonContent>
-    </IonPage>
+    </MainLayout>
   );
 };
 

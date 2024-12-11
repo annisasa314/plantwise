@@ -3,23 +3,23 @@ import { IonFooter, IonGrid, IonRow, IonCol, IonText } from "@ionic/react";
 
 const About: React.FC = () => {
   return (
-    <section className="p-5 mt-2">
-      <IonRow className="program-objectives text-white p-10">
-        <IonCol size="6" className="p-0 h-full flex">
+    <section className="pb-5 pt-16 mt-2 flex">
+      <IonRow className="program-objectives text-white p-10 flex justify-center">
+        <IonCol size="4" className="p-0 h-full flex">
           <img
             alt="Petani bekerja di ladang hijau"
             src="/about.jpg"
-            className="w-full h-full object-cover rounded-lg"
+            className="flex object-cover rounded-lg"
           />
         </IonCol>
         <IonCol size="6" className="pt-0 pl-7 flex flex-col justify-center">
-          <IonText className="font-semibold text-lg mb-4 tracking-wide text-black">
+          <IonText className="font-semibold text-lg mb-4 tracking-wide text-[#3e885b]">
             SIAPA KAMI?
           </IonText>
-          <IonText className="font-light text-2xl mb-1 tracking-wide text-[#2f4b26]">
+          <IonText className="font-light text-3xl mb-1 tracking-wide text-[#2f4b26]">
             plantwise
           </IonText>
-          <div className="mb-4 text-[#2f4b26] mr-10 text-base tracking-wide">
+          <div className="mb-4 text-[#2f4b26] mr-10 text-base tracking-wide text-justify">
             <IonText>
               <p>
                 Plantwise adalah sebuah platform edukasi non-profit dengan misi
@@ -40,6 +40,7 @@ const About: React.FC = () => {
                 dan penyakit, hingga kendala terkait perubahan cuaca dan
                 lingkungan.
               </p>
+              <br />
               <p>
                 Kami percaya bahwa edukasi yang berkelanjutan adalah kunci untuk
                 membantu penanam pemula meningkatkan hasil panen mereka. Melalui

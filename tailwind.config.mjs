@@ -1,5 +1,4 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./src/**/*.{html,ts,jsx,tsx}",
     "./node_modules/@ionic/react/**/*.{js,jsx,ts,tsx}",

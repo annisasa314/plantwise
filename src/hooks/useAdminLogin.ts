@@ -4,7 +4,7 @@ import { TLoginForm } from "../type/form.type";
 import { TUser } from "../type/user.type";
 import Cookies from "js-cookie";
 
-export const useLogin = () => {
+export const useAdminLogin = () => {
   return useMutation<TUser, Error, TLoginForm>({
     mutationFn: async (formData: TLoginForm) => {
       const userCredential = await loginWithEmailAndPassword(
@@ -12,23 +12,22 @@ export const useLogin = () => {
         formData.password
       );
 
-      return {
+      const user = {
         id: userCredential.user.uid,
         email: userCredential.user.email,
-        name: userCredential.user.displayName || "User",
-        // Add other necessary user properties
+        name: userCredential.user.displayName || "Admin",
+        role: "admin", // Ensure you handle role-specific data here
       } as TUser;
+
+      return user;
     },
     onSuccess: (data) => {
-      // Store user in cookies
-      Cookies.set("user", JSON.stringify(data));
-
-      // Optional: Redirect or show success message
-      window.location.href = "/home";
+      Cookies.set("user", JSON.stringify(data)); // Store admin in cookies
+      window.location.href = "/admin/dashboard"; // Redirect to admin dashboard
     },
     onError: (error) => {
-      console.error("Login failed", error);
-      // Handle login error (show toast, etc.)
+      console.error("Admin login failed", error);
+      // Optionally, show error message or toast
     },
   });
 };

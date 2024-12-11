@@ -13,23 +13,27 @@ import {
 import Konva from "konva";
 
 import { Stage, Layer, Rect, Group, Image as KonvaImage } from "react-konva";
-import Navbar from '../../components/Navbar/Navbar';
+import Navbar from "../../components/Navbar/Navbar";
 
 import "./Kalkulator.css";
 
 const Calculator: React.FC = () => {
   const [length, setLength] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
-  const [spacing, setSpacing] = useState<number | string>(""); 
-  const [customSpacing, setCustomSpacing] = useState<number>(0); 
-  const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(null);
+  const [spacing, setSpacing] = useState<number | string>("");
+  const [customSpacing, setCustomSpacing] = useState<number>(0);
+  const [uploadedImage, setUploadedImage] = useState<HTMLImageElement | null>(
+    null
+  );
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [result, setResult] = useState<{
     area: number;
     plantCount: number;
   } | null>(null);
   const [plantLayout, setPlantLayout] = useState<Konva.Vector2d[]>([]);
-  const [editablePlantLayout, setEditablePlantLayout] = useState<Konva.Vector2d[]>([]);
+  const [editablePlantLayout, setEditablePlantLayout] = useState<
+    Konva.Vector2d[]
+  >([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const stageRef = useRef<any>(null);
 
@@ -61,8 +65,9 @@ const Calculator: React.FC = () => {
 
   // Fungsi untuk menghitung area dan jumlah tanaman berdasarkan input
   const calculatePlanting = () => {
-    const chosenSpacing = spacing === "manual" ? customSpacing : Number(spacing);
-    
+    const chosenSpacing =
+      spacing === "manual" ? customSpacing : Number(spacing);
+
     if (length > 0 && width > 0 && chosenSpacing > 0) {
       const area = length * width;
       const rowSpacing = chosenSpacing / 100;
@@ -90,7 +95,9 @@ const Calculator: React.FC = () => {
 
   // Fungsi untuk menghapus tanaman dari layout
   const removePlant = (indexToRemove: number) => {
-    const updatedLayout = editablePlantLayout.filter((_, index) => index !== indexToRemove);
+    const updatedLayout = editablePlantLayout.filter(
+      (_, index) => index !== indexToRemove
+    );
     setEditablePlantLayout(updatedLayout);
   };
 
@@ -99,13 +106,13 @@ const Calculator: React.FC = () => {
     if (stageRef.current) {
       // Konversi stage menjadi data URL
       const dataURL = stageRef.current.toDataURL({
-        mimeType: 'image/png',
+        mimeType: "image/png",
         quality: 1,
-        pixelRatio: 2 // Meningkatkan kualitas gambar
+        pixelRatio: 2, // Meningkatkan kualitas gambar
       });
 
       // Buat elemen link untuk download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.download = `Layout_Tanaman_${length}x${width}m.png`;
       link.href = dataURL;
       link.click();
@@ -115,20 +122,16 @@ const Calculator: React.FC = () => {
   // Fungsi untuk merender layout tanaman
   const renderPlantLayout = () => {
     // Ukuran stage sesuai dengan dimensi input
-    const stageWidth = 800;  // Lebar tetap 800px
-    const stageHeight = (width / length) * 800;  // Tinggi disesuaikan dengan rasio dimensi
-    
+    const stageWidth = 800; // Lebar tetap 800px
+    const stageHeight = (width / length) * 800; // Tinggi disesuaikan dengan rasio dimensi
+
     // Hitung skala untuk penyesuaian gambar dan tanaman
     const scaleX = stageWidth / length;
     const scaleY = stageHeight / width;
 
     return (
       <>
-        <Stage 
-          ref={stageRef}
-          width={stageWidth} 
-          height={stageHeight}
-        >
+        <Stage ref={stageRef} width={stageWidth} height={stageHeight}>
           <Layer>
             {/* Render gambar yang diunggah sebagai latar belakang */}
             {uploadedImage && (
@@ -140,16 +143,16 @@ const Calculator: React.FC = () => {
                 height={stageHeight}
               />
             )}
-            
+
             {/* Layout tanaman yang dapat diedit */}
             {editablePlantLayout.map((pos, index) => (
               <Group key={index} onClick={() => removePlant(index)}>
                 <Rect
                   x={pos.x * scaleX}
                   y={pos.y * scaleY}
-                  width={13}  // Ukuran titik tanaman
+                  width={13} // Ukuran titik tanaman
                   height={13}
-                  fill="red"  
+                  fill="red"
                   stroke="red"
                   shadowBlur={5}
                   shadowColor="black"
@@ -179,19 +182,17 @@ const Calculator: React.FC = () => {
           <IonCardContent>
             {/* Bagian Unggah Gambar */}
             <div className="image-upload-container">
-              <input 
-                type="file" 
+              <input
+                type="file"
                 accept="image/*"
                 ref={fileInputRef}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 onChange={handleImageUpload}
               />
               <IonButton onClick={() => fileInputRef.current?.click()}>
                 Unggah Foto Lokasi Tanam
               </IonButton>
-              {uploadedFileName && (
-                <p>File terunggah: {uploadedFileName}</p>
-              )}
+              {uploadedFileName && <p>File terunggah: {uploadedFileName}</p>}
             </div>
 
             <IonInput

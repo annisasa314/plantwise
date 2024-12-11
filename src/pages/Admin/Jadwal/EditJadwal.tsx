@@ -1,8 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams
-import { IonPage, IonContent, IonInput, IonLabel, IonButton, IonAlert, IonItem } from '@ionic/react';
-import { updateJadwalTanam, getJadwalTanam } from '../../../services/auth.service';
-import Navbar from '../../../components/Navbar/Navbar';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; // Import useParams
+import {
+  IonPage,
+  IonContent,
+  IonInput,
+  IonLabel,
+  IonButton,
+  IonAlert,
+  IonItem,
+} from "@ionic/react";
+import {
+  updateJadwalTanam,
+  getJadwalTanam,
+} from "../../../services/auth.service";
+import Navbar from "../../../components/Navbar/Navbar";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const EditJadwal: React.FC = () => {
   const { id } = useParams<{ id: string }>(); // Ambil ID dari URL
@@ -21,7 +33,7 @@ const EditJadwal: React.FC = () => {
           setNewJadwal({ ...selectedJadwal }); // Salin data untuk diedit
         }
       } catch (error) {
-        console.error('Error fetching jadwal: ', error);
+        console.error("Error fetching jadwal: ", error);
       }
     };
     fetchJadwal();
@@ -42,7 +54,7 @@ const EditJadwal: React.FC = () => {
         await updateJadwalTanam(jadwal!.id, newJadwal); // Perbarui data berdasarkan ID
         setShowAlert(true);
       } catch (error) {
-        console.error('Error updating jadwal tanam:', error);
+        console.error("Error updating jadwal tanam:", error);
       }
     }
   };
@@ -52,8 +64,10 @@ const EditJadwal: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
+      <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
+        Edit Post
+      </h1>
       <IonContent className="ion-padding">
         {jadwal && newJadwal ? (
           <>
@@ -61,7 +75,9 @@ const EditJadwal: React.FC = () => {
               <IonLabel position="stacked">Jenis Tanaman</IonLabel>
               <IonInput
                 value={newJadwal.jenis_tanaman}
-                onIonChange={(e) => handleInputChange('jenis_tanaman', e.detail.value!)}
+                onIonChange={(e) =>
+                  handleInputChange("jenis_tanaman", e.detail.value!)
+                }
               />
             </IonItem>
 
@@ -69,7 +85,9 @@ const EditJadwal: React.FC = () => {
               <IonLabel position="stacked">Nama Tanaman</IonLabel>
               <IonInput
                 value={newJadwal.nama_tanaman}
-                onIonChange={(e) => handleInputChange('nama_tanaman', e.detail.value!)}
+                onIonChange={(e) =>
+                  handleInputChange("nama_tanaman", e.detail.value!)
+                }
               />
             </IonItem>
 
@@ -77,7 +95,7 @@ const EditJadwal: React.FC = () => {
               <IonLabel position="stacked">Musim</IonLabel>
               <IonInput
                 value={newJadwal.musim}
-                onIonChange={(e) => handleInputChange('musim', e.detail.value!)}
+                onIonChange={(e) => handleInputChange("musim", e.detail.value!)}
               />
             </IonItem>
 
@@ -85,11 +103,16 @@ const EditJadwal: React.FC = () => {
               <IonLabel position="stacked">Waktu Tanam</IonLabel>
               <IonInput
                 value={newJadwal.waktu_penanaman}
-                onIonChange={(e) => handleInputChange('waktu_penanaman', e.detail.value!)}
+                onIonChange={(e) =>
+                  handleInputChange("waktu_penanaman", e.detail.value!)
+                }
               />
             </IonItem>
 
-            <IonButton expand="full" onClick={() => setShowConfirmationDialog(true)}>
+            <IonButton
+              expand="full"
+              onClick={() => setShowConfirmationDialog(true)}
+            >
               Konfirmasi Perubahan
             </IonButton>
 
@@ -105,12 +128,12 @@ const EditJadwal: React.FC = () => {
               message="Apakah Anda yakin dengan perubahan data?"
               buttons={[
                 {
-                  text: 'Batal',
-                  role: 'cancel',
+                  text: "Batal",
+                  role: "cancel",
                   handler: () => setShowConfirmationDialog(false),
                 },
                 {
-                  text: 'Ya',
+                  text: "Ya",
                   handler: () => handleSaveChanges(),
                 },
               ]}
@@ -122,14 +145,14 @@ const EditJadwal: React.FC = () => {
               onDidDismiss={() => setShowAlert(false)}
               header="Sukses"
               message="Data jadwal tanam telah berhasil diperbarui."
-              buttons={['OK']}
+              buttons={["OK"]}
             />
           </>
         ) : (
           <p>Loading...</p>
         )}
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 

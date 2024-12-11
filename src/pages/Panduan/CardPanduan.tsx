@@ -47,7 +47,7 @@ const ListCard: React.FC = () => {
 
   // Fungsi untuk mengarahkan ke halaman tutorial
   const navigateToTutorial = (id: string) => {
-    history.push(`/panduan/${id}`); // Memperbaiki dengan menggunakan backticks
+    history.push(`/panduan/${id}`);
   };
 
   return (

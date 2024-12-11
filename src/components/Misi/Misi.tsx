@@ -4,7 +4,7 @@ import { FaBullhorn } from "react-icons/fa"; // Menggunakan ikon bullhorn sebaga
 
 const VisionMission: React.FC = () => {
   return (
-    <section className="p-6 mt-8">
+    <section className="p-16 mt-8">
       <IonRow className="text-white p-6">
         <IonCol size="6" className="flex flex-col justify-start pr-16">
           <div className="flex items-center mb-4">
@@ -13,7 +13,7 @@ const VisionMission: React.FC = () => {
               Visi Kami
             </IonText>
           </div>
-          <IonText className="text-base text-[#2f4b26] leading-relaxed">
+          <IonText className="text-base text-[#2f4b26] leading-relaxed text-justify">
             <p>
               Visi Plantwise adalah menjadi platform edukasi terdepan yang
               memberdayakan penanam pemula di Indonesia untuk mengoptimalkan
@@ -31,28 +31,29 @@ const VisionMission: React.FC = () => {
               Misi Kami
             </IonText>
           </div>
-          <IonText className="text-base text-[#2f4b26] leading-relaxed">
+          <IonText className="text-base text-[#2f4b26] leading-relaxed text-justify">
             <p>
               Plantwise bertujuan untuk memberdayakan masyarakat dalam bercocok
               tanam secara mandiri di pekarangan rumah, dengan fokus pada
-              ketahanan pangan dan keberlanjutan lingkungan. Berikut adalah misi
-              kami:
-              <ul>
-                <li>
-                  Menyediakan edukasi praktis dan akses informasi bagi penanam
-                  pemula untuk mengembangkan keterampilan bercocok tanam di
-                  pekarangan rumah.
-                </li>
-                <li>
-                  Mendukung praktik pertanian berkelanjutan yang ramah
-                  lingkungan dan dapat diakses oleh masyarakat luas.
-                </li>
-                <li>
-                  Membangun komunitas yang saling berbagi pengetahuan dan
-                  pengalaman dalam bercocok tanam untuk kesejahteraan bersama.
-                </li>
-              </ul>
+              ketahanan pangan dan keberlanjutan lingkungan.
             </p>
+            <br />
+            <p>Berikut adalah misi kami:</p>
+            <ul className="list-disc pl-5">
+              <li>
+                Menyediakan edukasi praktis dan akses informasi bagi penanam
+                pemula untuk mengembangkan keterampilan bercocok tanam di
+                pekarangan rumah.
+              </li>
+              <li>
+                Mendukung praktik pertanian berkelanjutan yang ramah lingkungan
+                dan dapat diakses oleh masyarakat luas.
+              </li>
+              <li>
+                Membangun komunitas yang saling berbagi pengetahuan dan
+                pengalaman dalam bercocok tanam untuk kesejahteraan bersama.
+              </li>
+            </ul>
           </IonText>
         </IonCol>
       </IonRow>
