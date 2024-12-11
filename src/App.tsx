@@ -25,7 +25,7 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 import Profile from "./pages/Profile/Profile";
-import PanduanForm from "./pages/Admin/PanduanForm";
+import PanduanForm from "./pages/Admin/Panduan/PanduanForm";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard";
 import UserPage from "./pages/Admin/User/User";
 import JadwalAdmin from "./pages/Admin/Jadwal/Jadwal";
@@ -52,6 +52,8 @@ import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
 import DashboardPage from "./pages/Admin/Dashboard/Dashboard";
 import AdminLogin from "./pages/Admin/Login/AdminLogin";
+import AdminTutorials from "./pages/Admin/Panduan/Panduan";
+import EditTutorial from "./pages/Admin/Panduan/EditPanduan";
 
 setupIonicReact();
 
@@ -78,8 +80,17 @@ const App: React.FC = () => (
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/admin" component={AdminLogin} />
-          {/* <Route exact path="/admin/panduan" component={UserPage} /> */}
-          <Route exact path="/add-panduan" component={PanduanForm} />
+          <Route exact path="/admin/panduan" component={AdminTutorials} />
+          <Route
+            exact
+            path="/admin/panduan/edit/:id"
+            component={EditTutorial}
+          />
+          <Route
+            path="/admin/panduan/edit/:id"
+            component={() => <PanduanForm isEditMode={true} />}
+          />
+          <Route exact path="/admin/panduan/add" component={PanduanForm} />
           <Route exact path="/admin/dashboard" component={Dashboard} />
           <Route exact path="/admin/user" component={UserPage} />
           <Route exact path="/admin/jadwal" component={JadwalAdmin} />
@@ -93,9 +104,9 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/home" />
           </Route>
-          <Route exact path="*">
+          {/* <Route exact path="*">
             <Redirect to="/home" />
-          </Route>
+          </Route> */}
         </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>

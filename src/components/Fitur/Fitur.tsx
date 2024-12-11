@@ -13,17 +13,17 @@ const Fitur: React.FC = () => {
       icon: book,
     },
     {
-      title: "Kalender",
+      title: "Jadwal",
       content:
         "Fitur ini membantu pengguna menentukan waktu terbaik untuk menanam berbagai jenis tanaman berdasarkan data cuaca, musim, dan jenis tanaman. Jadwal ini dirancang untuk meningkatkan peluang panen yang sukses.",
-      navigateTo: "/calendar",
+      navigateTo: "/jadwal",
       icon: calendar,
     },
     {
       title: "Kalkulator",
       content:
         "Fitur ini memungkinkan pengguna menghitung jarak tanam ideal berdasarkan parameter seperti jenis tanaman, panjang, dan lebar lahan.",
-      navigateTo: "/calculator",
+      navigateTo: "/kalkulator",
       icon: calculator,
     },
     {
