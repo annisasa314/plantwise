@@ -35,7 +35,6 @@ import AddJadwal from "./pages/Admin/Jadwal/TambahJadwal";
 import PostPage from "./pages/Admin/Forum/Post";
 import CommentPage from "./pages/Admin/Forum/Komentar";
 
-
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -62,8 +61,7 @@ import AdminTutorials from "./pages/Admin/Panduan/Panduan";
 import EditTutorial from "./pages/Admin/Panduan/EditPanduan";
 import { RequireAuth } from "./middleware/auth.middleware";
 import { AdminOnly } from "./middleware/admin.middleware";
-import { Forum } from "@mui/icons-material";
-
+// import { Forum } from "@mui/icons-material";
 
 setupIonicReact();
 
