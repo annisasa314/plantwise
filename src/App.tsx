@@ -27,12 +27,6 @@ import "@ionic/react/css/display.css";
 
 import Profile from "./pages/Profile/Profile";
 import PanduanForm from "./pages/Admin/PanduanForm";
-import Dashboard from "./pages/Admin/Dashboard/Dashboard";
-import UserPage from "./pages/Admin/User/User";
-import JadwalAdmin from "./pages/Admin/Jadwal/Jadwal";
-import EditJadwal from "./pages/Admin/Jadwal/EditJadwal";
-import AddJadwal from "./pages/Admin/Jadwal/TambahJadwal";
-import PostPage from "./pages/Admin/Forum/Post";
 
 /**
  * Ionic Dark Mode
@@ -50,7 +44,9 @@ import "./theme/variables.css";
 import Jadwal from "./pages/Jadwal/jadwal";
 import Home from "./pages/Home/Home";
 import Panduan from "./pages/Panduan/Panduan";
-
+import Forum from "./pages/Forum/Forum";
+import CommentsPage from "./pages/Forum/ForumComments";
+import NewPost from "./pages/Forum/ForumPost";
 
 setupIonicReact();
 
@@ -68,24 +64,20 @@ const App: React.FC = () => (
   <QueryClientProvider client={queryClient}>
     <IonApp>
       <IonReactRouter>
-      <Navbar />
+        <Navbar />
         <IonRouterOutlet>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/panduan" component={Panduan} />
           <Route exact path="/jadwal" component={Jadwal} />
+          <Route exact path="/forum" component={Forum} />
+          <Route exact path="/forum/create" component={NewPost} />
+          <Route path="/comments/:postId" component={CommentsPage} />
+          <Route path="/forum/category/:categoryName" component={Forum} />
           <Route exact path="/kalkulator" component={Calculator} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/add-panduan" component={PanduanForm} />
-
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/user" component={UserPage} />
-          <Route exact path="/jadwal-admin" component={JadwalAdmin} />
-          <Route exact path="/edit-jadwal/:id" component={EditJadwal} />
-          <Route exact path="/tambah-jadwal" component={AddJadwal} />
-          <Route exact path="/post-admin" component={PostPage} />
-
 
           {/* Default redirect */}
           <Route exact path="/">

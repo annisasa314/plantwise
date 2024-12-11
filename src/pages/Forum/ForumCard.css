@@ -1,0 +1,132 @@
+/* Forum Card */
+.forum-card {
+    margin: 1rem 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.9rem;
+    border: 0.6px solid #e0e0e0;
+}
+
+.user-date {
+    display: flex;
+    flex-direction: column; /* Mengatur elemen dalam kolom (vertikal) */
+    gap: 2px; /* Menambahkan jarak antar elemen */
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.user {
+    font-size: 0.8rem; /* Ukuran font yang lebih besar untuk user */
+    color: #4a4a4a;
+}
+
+.date {
+    font-size: 0.7rem; /* Ukuran font yang lebih kecil untuk date */
+    color: #666;
+}
+
+/* Title dan Category */
+.card-body {
+    padding: 1rem;
+}
+
+.category {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #2f4b26;
+    background-color: transparent; /* Menghilangkan background hijau */
+    padding: 0;  /* Menghilangkan padding */
+    border: none;  /* Menghilangkan border */
+    box-shadow: none; /* Pastikan tidak ada shadow atau efek lain */
+    margin-bottom: 0.5rem; /* Memberikan jarak antara kategori dan judul */
+}
+
+.title {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #4a4a4a;
+    margin-bottom: 0.5rem;
+}
+
+.card-body .category, .footer {
+    background-color: transparent;  
+    border: none;  
+    box-shadow: none; 
+}
+
+/* Footer - Views dan Comments */
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #9e9e9e;
+    margin-top: 0.8rem;
+    gap: 15px;
+    padding-right: 45px; /* Memberikan jarak antara konten dan ujung kanan */
+}
+
+.footer .views {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    gap: 3px;  /* Menambahkan jarak antar elemen (ikon dan teks) */
+    color: #2f4b26;  /* Mengubah warna teks menjadi abu-abu */
+}
+
+.footer .views ion-icon {
+    font-size: 1rem;
+    color: #2f4b26;  /* Mengubah warna ikon menjadi abu-abu */
+}
+
+.footer .views span { 
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #2f4b26; 
+}
+
+.footer .comments {
+    display: flex;
+    align-items: center;
+    font-size: 0.85rem;
+    gap: 2px;  /* Menambahkan jarak antar elemen (ikon dan teks) */
+    color: #2f4b26;  /* Mengubah warna teks menjadi abu-abu */
+    margin-left: 30px; /* Memberikan jarak kiri pada comments */
+}
+
+.footer .comments ion-icon {
+    font-size: 0.9rem;
+    color: #2f4b26;  
+}
+
+.footer .comments span {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-left: 3px; 
+    color: #2f4b26; 
+}
+
+.footer .comments a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer .comments a:hover {
+    color: #2f4b26;
+}
