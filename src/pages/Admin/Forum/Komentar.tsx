@@ -14,9 +14,11 @@ import { IonPage, IonContent } from "@ionic/react";
 import Navbar from "../../../components/Navbar/Navbar";
 import { getComments, deleteComment } from "../../../services/auth.service";
 import AdminLayout from "../../../layouts/AdminLayout";
+import { Comment, Post } from "../../../type/forum.type"; // Adjust import path as needed
+import { Timestamp } from "firebase/firestore";
 
 const CommentPage: React.FC = () => {
-  const [comments, setComments] = useState<any[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [selectedCommentId, setSelectedCommentId] = useState<string | null>(
     null
@@ -66,6 +68,14 @@ const CommentPage: React.FC = () => {
     setSelectedCommentId(null);
   };
 
+  // Helper function to format timestamp
+  const formatTimestamp = (timestamp: Timestamp) => {
+    if (!timestamp) return "-";
+    return timestamp.toDate
+      ? timestamp.toDate().toLocaleString()
+      : new Date(timestamp as unknown as number).toLocaleString();
+  };
+
   return (
     <AdminLayout>
       <IonContent className="ion-padding">
@@ -76,27 +86,24 @@ const CommentPage: React.FC = () => {
           columns={[
             {
               accessorKey: "name",
-              header: "Nama",
+              header: "Nama Pengirim",
             },
             {
-              accessorKey: "judul",
-              header: "Judul Postingan",
+              accessorKey: "email",
+              header: "Email",
             },
             {
               accessorKey: "body",
-              header: "Komentar",
+              header: "Isi Komentar",
+            },
+            {
+              accessorKey: "postId",
+              header: "ID Postingan Terkait",
             },
             {
               accessorKey: "createAt",
               header: "Tanggal Dibuat",
-              Cell: ({ cell }) => {
-                const timestamp = cell.getValue() as {
-                  seconds: number;
-                  nanoseconds: number;
-                };
-                const date = new Date(timestamp.seconds * 1000);
-                return date.toLocaleString();
-              },
+              Cell: ({ cell }) => formatTimestamp(cell.getValue() as Timestamp),
             },
             {
               id: "delete",

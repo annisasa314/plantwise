@@ -7,7 +7,19 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { collection, getDocs, query, where, deleteDoc, doc, updateDoc, addDoc, orderBy } from 'firebase/firestore';
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc,
+  updateDoc,
+  addDoc,
+  orderBy,
+  Timestamp,
+} from "firebase/firestore";
+import { Post, Comment } from "../type/forum.type";
 
 // const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -55,24 +67,33 @@ export const logoutUser = async () => {
 };
 
 // Function to get tanaman data with optional filters for jenis, musim, and search query
-export const getTanamanData = async (jenis?: string, musim?: string, searchQuery?: string) => {
+export const getTanamanData = async (
+  jenis?: string,
+  musim?: string,
+  searchQuery?: string
+) => {
   try {
     // Build the Firestore query with optional filters
     const q = query(
-      collection(db, 'jadwal_tanam'),
-      ...(jenis ? [where('jenis_tanaman', '==', jenis)] : []),
-      ...(musim ? [where('musim', '==', musim)] : []),
-      ...(searchQuery ? [where('nama_tanaman', '>=', searchQuery), where('nama_tanaman', '<=', searchQuery + '\uf8ff')] : [])
+      collection(db, "jadwal_tanam"),
+      ...(jenis ? [where("jenis_tanaman", "==", jenis)] : []),
+      ...(musim ? [where("musim", "==", musim)] : []),
+      ...(searchQuery
+        ? [
+            where("nama_tanaman", ">=", searchQuery),
+            where("nama_tanaman", "<=", searchQuery + "\uf8ff"),
+          ]
+        : [])
     );
 
     const querySnapshot = await getDocs(q);
     const tanamanData: any[] = [];
-    querySnapshot.forEach(doc => {
+    querySnapshot.forEach((doc) => {
       tanamanData.push({ ...doc.data(), id: doc.id });
     });
     return tanamanData;
   } catch (error) {
-    console.error('Error getting documents: ', error);
+    console.error("Error getting documents: ", error);
     return [];
   }
 };
@@ -106,12 +127,12 @@ const getUsers = async () => {
   const usersCollection = collection(db, "users");
   const q = query(usersCollection, where("role", "==", "user")); // Filter berdasarkan role = user
   const snapshot = await getDocs(q);
-  
-  const users = snapshot.docs.map(doc => ({
+
+  const users = snapshot.docs.map((doc) => ({
     id: doc.id,
     name: doc.data().name,
     email: doc.data().email,
-    createdAt: doc.data().createdAt.toDate().toLocaleString() // Konversi ke string yang lebih mudah dibaca
+    createdAt: doc.data().createdAt.toDate().toLocaleString(), // Konversi ke string yang lebih mudah dibaca
   }));
 
   return users;
@@ -125,71 +146,96 @@ const deleteUser = async (userId: string) => {
 // Fungsi untuk mengambil semua data jadwal tanam
 export const getJadwalTanam = async () => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'jadwal_tanam'));
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const querySnapshot = await getDocs(collection(db, "jadwal_tanam"));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
-    console.error('Error fetching data: ', error);
-    throw new Error('Gagal mengambil data');
+    console.error("Error fetching data: ", error);
+    throw new Error("Gagal mengambil data");
   }
 };
 
 // Fungsi untuk menghapus jadwal tanam berdasarkan id
 export const deleteJadwalTanam = async (id: string) => {
   try {
-    await deleteDoc(doc(db, 'jadwal_tanam', id));
+    await deleteDoc(doc(db, "jadwal_tanam", id));
   } catch (error) {
-    console.error('Error deleting document: ', error);
-    throw new Error('Gagal menghapus data');
+    console.error("Error deleting document: ", error);
+    throw new Error("Gagal menghapus data");
   }
 };
 
 // Fungsi untuk memperbarui data jadwal tanam
 export const updateJadwalTanam = async (id: string, updatedData: any) => {
   try {
-    const jadwalRef = doc(db, 'jadwal_tanam', id);
+    const jadwalRef = doc(db, "jadwal_tanam", id);
     await updateDoc(jadwalRef, updatedData);
   } catch (error) {
-    console.error('Error updating document: ', error);
-    throw new Error('Gagal memperbarui data');
+    console.error("Error updating document: ", error);
+    throw new Error("Gagal memperbarui data");
   }
 };
 
 export const createJadwalTanam = async (newJadwal: any) => {
   try {
     // Referensi ke koleksi jadwal_tanam di Firestore
-    const jadwalCollectionRef = collection(db, 'jadwal_tanam');
-    
+    const jadwalCollectionRef = collection(db, "jadwal_tanam");
+
     // Menambahkan dokumen baru ke koleksi
     const docRef = await addDoc(jadwalCollectionRef, newJadwal);
 
-    console.log('Jadwal Tanam berhasil ditambahkan dengan ID: ', docRef.id);
-    return docRef.id;  // Mengembalikan ID dokumen yang baru ditambahkan
+    console.log("Jadwal Tanam berhasil ditambahkan dengan ID: ", docRef.id);
+    return docRef.id; // Mengembalikan ID dokumen yang baru ditambahkan
   } catch (error) {
-    console.error('Error menambahkan jadwal tanam: ', error);
-    throw new Error('Gagal menambahkan jadwal tanam');
+    console.error("Error menambahkan jadwal tanam: ", error);
+    throw new Error("Gagal menambahkan jadwal tanam");
   }
 };
 
-interface Post {
-  id: string;
-  nama: string; // Reference ke user
-  judul: string;
-  pertanyaan: string;
-  createAt: Date;
-  view: number;
-  komentar: string; // Reference ke komentar
-}
+// export const getPosts = async (): Promise<Post[]> => {
+//   try {
+//     const postsRef = collection(db, 'postingan');
+//     const q = query(postsRef, orderBy('createAt', 'desc'));
+
+//     const querySnapshot = await getDocs(q);
+//     const posts: Post[] = querySnapshot.docs.map(doc => ({
+//       id: doc.id,
+//       ...doc.data()
+//     } as Post));
+
+//     return posts;
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//     throw error;
+//   }
+// };
 
 export const getPosts = async (): Promise<Post[]> => {
   try {
-    const postsRef = collection(db, 'postingan');
-    const q = query(postsRef, orderBy('createAt', 'desc'));
-    
+    const postsRef = collection(db, "postingan");
+    const q = query(postsRef, orderBy("createAt", "desc"));
     const querySnapshot = await getDocs(q);
-    const posts: Post[] = querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Post));
+
+    // Map Firestore data to your Post type
+    const posts: Post[] = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+
+      // Ensuring createAt is a Timestamp
+      const createAt =
+        data.createAt instanceof Timestamp
+          ? data.createAt
+          : new Timestamp(0, 0);
+
+      return {
+        id: doc.id,
+        judul: data.judul,
+        body: data.body,
+        name: data.name,
+        email: data.email,
+        pertanyaan: data.pertanyaan,
+        createAt, // Correctly assign createAt as Timestamp
+        view: data.view || 0,
+      } as unknown as Post;
+    });
 
     return posts;
   } catch (error) {
@@ -200,7 +246,7 @@ export const getPosts = async (): Promise<Post[]> => {
 
 export const deletePost = async (postId: string): Promise<void> => {
   try {
-    const postRef = doc(db, 'postingan', postId);
+    const postRef = doc(db, "postingan", postId);
     await deleteDoc(postRef);
   } catch (error) {
     console.error("Error deleting post:", error);
@@ -208,29 +254,60 @@ export const deletePost = async (postId: string): Promise<void> => {
   }
 };
 
-const commentCollection = collection(db, 'komentar');
+const commentCollection = collection(db, "komentar");
 
-export const getComments = async () => {
-  const querySnapshot = await getDocs(commentCollection);
-  return querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+// export const getComments = async () => {
+//   const querySnapshot = await getDocs(commentCollection);
+//   return querySnapshot.docs.map((doc) => ({
+//     id: doc.id,
+//     ...doc.data(),
+//   }));
+// };
+
+export const getComments = async (): Promise<Comment[]> => {
+  try {
+    const commentsRef = collection(db, "komentar");
+    const q = query(commentsRef, orderBy("createAt", "desc"));
+    const querySnapshot = await getDocs(q);
+
+    const comments: Comment[] = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+
+      const createAt =
+        data.createAt instanceof Timestamp
+          ? data.createAt
+          : new Timestamp(0, 0);
+
+      return {
+        id: doc.id,
+        body: data.body || "",
+        name: data.name || "",
+        email: data.email || "",
+        createAt,
+        postId: data.postId || "",
+      } as Comment; // Explicit cast to your expected Comment type
+    });
+
+    return comments;
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    throw error;
+  }
 };
 
 export const deleteComment = async (id: string) => {
-  const commentDoc = doc(db, 'komentar', id);
+  const commentDoc = doc(db, "komentar", id);
   await deleteDoc(commentDoc);
 };
 
-export const addComment = async (commentData: {
-  name: string;
-  body: string;
-  createAt: Date;
-  judul: string;
-}) => {
-  await addDoc(commentCollection, commentData);
-};
+// export const addComment = async (commentData: {
+//   name: string;
+//   body: string;
+//   createAt: Date;
+//   judul: string;
+// }) => {
+//   await addDoc(commentCollection, commentData);
+// };
 
 export {
   getUserCount,
@@ -238,6 +315,5 @@ export {
   getTutorialCount,
   getPlantingScheduleCount,
   getUsers,
-  deleteUser
+  deleteUser,
 };
-

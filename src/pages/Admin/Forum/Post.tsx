@@ -11,12 +11,19 @@ import {
   Snackbar,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { IonPage, IonContent } from "@ionic/react";
-import Navbar from "../../../components/Navbar/Navbar";
+import { IonContent } from "@ionic/react";
 import AdminLayout from "../../../layouts/AdminLayout";
+import { Post } from "../../../type/forum.type";
+import { Timestamp } from "firebase/firestore";
+
+// Helper function to format the Timestamp to Date string
+const formatTimestamp = (timestamp: Timestamp): string => {
+  const date = timestamp.toDate();
+  return date.toLocaleString(); // You can format this further as needed
+};
 
 const PostPage: React.FC = () => {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [openDeleteDialog, setOpenDeleteDialog] = useState<boolean>(false);
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -68,14 +75,17 @@ const PostPage: React.FC = () => {
     <AdminLayout>
       <IonContent className="ion-padding">
         <h1 className="text-3xl font-semibold text-center border-b p-2 text-gray-800 mb-6">
-          Post
+          Postingan
         </h1>
         <MaterialReactTable
           columns={[
             {
               accessorKey: "name",
               header: "Nama Pengguna",
-              Cell: ({ cell }) => cell.getValue()?.toString() || "-",
+            },
+            {
+              accessorKey: "email",
+              header: "Email",
             },
             {
               accessorKey: "judul",
@@ -87,15 +97,12 @@ const PostPage: React.FC = () => {
             },
             {
               accessorKey: "body",
-              header: "Komentar",
+              header: "Konten",
             },
             {
               accessorKey: "createAt",
               header: "Dibuat Pada",
-              Cell: ({ cell }) => {
-                const date = cell.getValue() as Date;
-                return date ? date.toLocaleString() : "-";
-              },
+              Cell: ({ cell }) => formatTimestamp(cell.getValue() as Timestamp),
             },
             {
               accessorKey: "view",
