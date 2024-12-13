@@ -8,24 +8,43 @@ import {
   logOutOutline,
 } from "ionicons/icons";
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom"; // Import useHistory for navigation
+import { Link, useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
+import { logout } from "../../services/auth"; // Adjust import path as needed
 
 export const AdminSidebar: React.FC<{
   isOpen: boolean;
   toggleSidebar: () => void;
-  onLogout?: () => void;
-}> = ({ isOpen, toggleSidebar, onLogout }) => {
+}> = ({ isOpen, toggleSidebar }) => {
   const [isForumDropdownOpen, setIsForumDropdownOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
-  const history = useHistory(); // Hook for navigation
+  const history = useHistory();
 
-  const handleLogout = () => {
-    if (onLogout) {
-      onLogout();
+  const handleLogout = async () => {
+    try {
+      // Remove all cookies
+      Object.keys(Cookies.get()).forEach((cookieName) => {
+        Cookies.remove(cookieName, {
+          path: "/",
+          domain: window.location.hostname,
+        });
+      });
+
+      // Perform logout
+      await logout();
+
+      // Clear local storage
+      localStorage.clear();
+
+      // Redirect to admin login page
+      history.push("/admin");
+
+      // Optional: Force page reload to clear any cached state
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout failed", error);
+      // Optionally show an error toast or message
     }
-    // Redirect to login page after logout
-    history.push("/admin");
-    setActiveMenu("logout");
   };
 
   return (
@@ -59,12 +78,12 @@ export const AdminSidebar: React.FC<{
               <li
                 onClick={() => setActiveMenu("dashboard")}
                 className={`px-4 py-2 flex items-center cursor-pointer transition 
-                  ${isOpen ? "justify-start" : "justify-center"}
-                  ${
-                    activeMenu === "dashboard"
-                      ? "bg-[#2f4b26]"
-                      : "hover:bg-[#2f4b26]"
-                  }`}
+              ${isOpen ? "justify-start" : "justify-center"}
+              ${
+                activeMenu === "dashboard"
+                  ? "bg-[#2f4b26]"
+                  : "hover:bg-[#2f4b26]"
+              }`}
               >
                 <IonIcon
                   icon={homeOutline}
@@ -79,12 +98,10 @@ export const AdminSidebar: React.FC<{
               <li
                 onClick={() => setActiveMenu("panduan")}
                 className={`px-4 py-2 flex items-center cursor-pointer transition
-                  ${isOpen ? "justify-start" : "justify-center"}
-                  ${
-                    activeMenu === "panduan"
-                      ? "bg-[#2f4b26]"
-                      : "hover:bg-[#2f4b26]"
-                  }`}
+              ${isOpen ? "justify-start" : "justify-center"}
+              ${
+                activeMenu === "panduan" ? "bg-[#2f4b26]" : "hover:bg-[#2f4b26]"
+              }`}
               >
                 <IonIcon
                   icon={bookOutline}
@@ -99,12 +116,10 @@ export const AdminSidebar: React.FC<{
               <li
                 onClick={() => setActiveMenu("jadwal")}
                 className={`px-4 py-2 flex items-center cursor-pointer transition
-                  ${isOpen ? "justify-start" : "justify-center"}
-                  ${
-                    activeMenu === "jadwal"
-                      ? "bg-[#2f4b26]"
-                      : "hover:bg-[#2f4b26]"
-                  }`}
+              ${isOpen ? "justify-start" : "justify-center"}
+              ${
+                activeMenu === "jadwal" ? "bg-[#2f4b26]" : "hover:bg-[#2f4b26]"
+              }`}
               >
                 <IonIcon
                   icon={calendarOutline}
@@ -122,12 +137,10 @@ export const AdminSidebar: React.FC<{
                   setActiveMenu("forum");
                 }}
                 className={`px-4 py-2 flex items-center cursor-pointer transition
-                  ${isOpen ? "justify-start" : "justify-center"}
-                  ${
-                    activeMenu === "forum"
-                      ? "bg-[#3e885b]"
-                      : "hover:bg-[#2f4b26]"
-                  }`}
+              ${isOpen ? "justify-start" : "justify-center"}
+              ${
+                activeMenu === "forum" ? "bg-[#3e885b]" : "hover:bg-[#2f4b26]"
+              }`}
               >
                 <IonIcon
                   icon={chatboxOutline}
@@ -138,7 +151,7 @@ export const AdminSidebar: React.FC<{
                     <span className="flex-1 text-white">Forum</span>
                     <span
                       className={`transform transition-transform text-white
-                      ${isForumDropdownOpen ? "rotate-180" : ""}`}
+                  ${isForumDropdownOpen ? "rotate-180" : ""}`}
                     >
                       ▼
                     </span>
@@ -152,11 +165,11 @@ export const AdminSidebar: React.FC<{
                     <li
                       onClick={() => setActiveMenu("post")}
                       className={`px-8 py-2 text-white cursor-pointer 
-                        ${
-                          activeMenu === "post"
-                            ? "bg-[#2f4b26]"
-                            : "hover:bg-[#2f4b26]"
-                        }`}
+                    ${
+                      activeMenu === "post"
+                        ? "bg-[#2f4b26]"
+                        : "hover:bg-[#2f4b26]"
+                    }`}
                     >
                       Post
                     </li>
@@ -165,11 +178,11 @@ export const AdminSidebar: React.FC<{
                     <li
                       onClick={() => setActiveMenu("komentar")}
                       className={`px-8 py-2 text-white cursor-pointer 
-                        ${
-                          activeMenu === "komentar"
-                            ? "bg-[#2f4b26]"
-                            : "hover:bg-[#2f4b26]"
-                        }`}
+                    ${
+                      activeMenu === "komentar"
+                        ? "bg-[#2f4b26]"
+                        : "hover:bg-[#2f4b26]"
+                    }`}
                     >
                       Komentar
                     </li>
@@ -185,10 +198,8 @@ export const AdminSidebar: React.FC<{
           <li
             onClick={handleLogout}
             className={`px-4 py-3 flex items-center cursor-pointer transition 
-              ${isOpen ? "justify-start" : "justify-center"}
-              ${
-                activeMenu === "logout" ? "bg-[#2f4b26]" : "hover:bg-[#2f4b26]"
-              }`}
+            ${isOpen ? "justify-start" : "justify-center"}
+            hover:bg-[#2f4b26]`}
           >
             <IonIcon icon={logOutOutline} className="w-6 h-6 mr-3 text-white" />
             {isOpen && <span className="text-white">Logout</span>}

@@ -1,175 +1,195 @@
-import React, { useState, useEffect } from "react";
-import {
-  IonPage,
-  IonContent,
-  IonItem,
-  IonInput,
-  IonButton,
-  IonIcon,
-  IonAvatar,
-  IonToast,
-} from "@ionic/react";
-import { personOutline, mailOutline, lockClosedOutline } from "ionicons/icons";
-import { getCurrentUser } from "../../services/auth";
-import { updateProfile, updatePassword } from "firebase/auth";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { TUser } from "../../type/user.type";
+// import React, { useState, useEffect } from "react";
+// import { db } from "../../../firebase";
+// import { doc, getDoc, updateDoc } from "firebase/firestore";
+// import { getAuth, signOut } from "firebase/auth";
+// import { TUser } from "../../type/user.type";
+// import { useHistory } from "react-router-dom"; // Gunakan useHistory dari react-router
 
-const Profile: React.FC = () => {
-  const [user, setUser] = useState<TUser | null>(null);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+// const Profile: React.FC = () => {
+//   const [user, setUser] = useState<TUser | null>(null);
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [newName, setNewName] = useState<string>("");
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState<string | null>(null);
+//   const history = useHistory(); // Gunakan hook useHistory untuk navigasi
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const currentUser = await getCurrentUser();
-      if (currentUser) {
-        const docRef = doc(db, "user", currentUser.uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const userData = docSnap.data() as TUser;
-          setUser(userData);
-          setName(userData.name);
-          setEmail(userData.email);
-        }
-      }
-    };
+//   useEffect(() => {
+//     const fetchUserData = async () => {
+//       try {
+//         const auth = getAuth();
+//         const currentUser = auth.currentUser;
 
-    fetchUserData();
-  }, []);
+//         if (!currentUser) {
+//           throw new Error("No authenticated user found");
+//         }
 
-  const handleUpdateProfile = async () => {
-    try {
-      const currentUser = await getCurrentUser();
-      if (currentUser) {
-        // Update Firebase Authentication profile
-        await updateProfile(currentUser, { displayName: name });
+//         const userId = currentUser.uid;
 
-        // Update Firestore user document
-        await updateDoc(doc(db, "user", currentUser.uid), {
-          name,
-          updatedAt: new Date().toISOString(),
-        });
+//         const userDocRef = doc(db, "users", userId);
+//         const userDocSnap = await getDoc(userDocRef);
 
-        setToastMessage("Profile updated successfully");
-        setShowToast(true);
-      }
-    } catch (error) {
-      setToastMessage("Error updating profile");
-      setShowToast(true);
-      console.error("Error updating profile:", error);
-    }
-  };
+//         if (userDocSnap.exists()) {
+//           const userData = userDocSnap.data() as TUser;
+//           setUser(userData);
+//           setNewName(userData.name);
+//         } else {
+//           throw new Error("User document not found in Firestore");
+//         }
+//       } catch (err) {
+//         setError(
+//           err instanceof Error ? err.message : "An unknown error occurred"
+//         );
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
 
-  const handleUpdatePassword = async () => {
-    if (password !== confirmPassword) {
-      setToastMessage("Passwords do not match");
-      setShowToast(true);
-      return;
-    }
+//     fetchUserData();
+//   }, []);
 
-    try {
-      const currentUser = await getCurrentUser();
-      if (currentUser) {
-        // Update Firebase Authentication password
-        await updatePassword(currentUser, password);
+//   const handleSave = async () => {
+//     try {
+//       if (user) {
+//         const userDocRef = doc(db, "users", user.id);
+//         const updateData = {
+//           name: newName.trim(),
+//           updatedAt: new Date().toISOString(),
+//         };
 
-        setToastMessage("Password updated successfully");
-        setShowToast(true);
-      }
-    } catch (error) {
-      setToastMessage("Error updating password");
-      setShowToast(true);
-      console.error("Error updating password:", error);
-    }
-  };
+//         await updateDoc(userDocRef, updateData);
 
-  return (
-    <IonPage>
-      <IonContent className="ion-padding">
-        <div className="ion-text-center">
-          <IonAvatar className="profile-avatar">
-            <img
-              src={user?.photoURL || "/assets/icon/favicon.png"}
-              alt="Profile"
-            />
-          </IonAvatar>
-          <IonButton fill="clear" size="small" className="change-photo-btn">
-            Change
-          </IonButton>
-        </div>
+//         setUser((prevUser) =>
+//           prevUser ? { ...prevUser, ...updateData } : null
+//         );
+//         setIsEditing(false);
+//       }
+//     } catch (err) {
+//       setError(err instanceof Error ? err.message : "Failed to save changes");
+//     }
+//   };
 
-        <IonItem lines="none" className="input-container">
-          <IonIcon icon={personOutline} slot="start" />
-          <IonInput
-            placeholder="Enter your name"
-            value={name}
-            onIonChange={(e) => setName(e.detail.value!)}
-            className="input-field"
-          />
-        </IonItem>
+//   // Metode logout yang mirip dengan contoh sidebar
+//   const handleLogout = async () => {
+//     try {
+//       const auth = getAuth();
+//       await signOut(auth);
+//       // Redirect ke halaman login
+//       history.push("/login");
+//     } catch (error) {
+//       console.error("Logout failed", error);
+//       // Optional: tambahkan state error logout jika diperlukan
+//     }
+//   };
 
-        <IonItem lines="none" className="input-container">
-          <IonIcon icon={mailOutline} slot="start" />
-          <IonInput
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onIonChange={(e) => setEmail(e.detail.value!)}
-            className="input-field"
-          />
-        </IonItem>
+//   const handleCancel = () => {
+//     setIsEditing(false);
+//     setNewName(user?.name || "");
+//   };
 
-        <IonItem lines="none" className="input-container">
-          <IonIcon icon={lockClosedOutline} slot="start" />
-          <IonInput
-            type="password"
-            placeholder="Enter new password"
-            value={password}
-            onIonChange={(e) => setPassword(e.detail.value!)}
-            className="input-field"
-          />
-        </IonItem>
+//   if (loading) {
+//     return <div className="text-center p-4">Loading...</div>;
+//   }
 
-        <IonItem lines="none" className="input-container">
-          <IonIcon icon={lockClosedOutline} slot="start" />
-          <IonInput
-            type="password"
-            placeholder="Confirm new password"
-            value={confirmPassword}
-            onIonChange={(e) => setConfirmPassword(e.detail.value!)}
-            className="input-field"
-          />
-        </IonItem>
+//   if (error) {
+//     return (
+//       <div className="text-red-500 p-4">
+//         Error: {error}
+//         <button
+//           onClick={() => window.location.reload()}
+//           className="ml-2 text-blue-500"
+//         >
+//           Retry
+//         </button>
+//       </div>
+//     );
+//   }
 
-        <IonButton expand="block" onClick={handleUpdateProfile} color="primary">
-          Update Profile
-        </IonButton>
+//   if (!user) {
+//     return <div className="text-center p-4">No user data available</div>;
+//   }
 
-        <IonButton
-          expand="block"
-          onClick={handleUpdatePassword}
-          color="primary"
-        >
-          Update Password
-        </IonButton>
+//   return (
+//     <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
+//       <div className="flex justify-between items-center mb-4">
+//         <h2 className="text-2xl font-bold">Profile</h2>
+//         <button
+//           onClick={handleLogout}
+//           className="px-4 py-2 bg-red-500 text-white rounded
+//                      hover:bg-red-600 transition-colors duration-300"
+//         >
+//           Logout
+//         </button>
+//       </div>
 
-        <IonToast
-          isOpen={showToast}
-          onDidDismiss={() => setShowToast(false)}
-          message={toastMessage}
-          duration={2000}
-          color="success"
-          position="top"
-        />
-      </IonContent>
-    </IonPage>
-  );
-};
+//       <div className="space-y-4">
+//         <div>
+//           <label className="block text-sm font-medium text-gray-700">
+//             Name
+//           </label>
+//           {isEditing ? (
+//             <input
+//               type="text"
+//               value={newName}
+//               onChange={(e) => setNewName(e.target.value)}
+//               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+//                          focus:border-blue-300 focus:ring focus:ring-blue-200
+//                          focus:ring-opacity-50 bg-white text-gray-900"
+//             />
+//           ) : (
+//             <div
+//               onClick={() => setIsEditing(true)}
+//               className="mt-1 p-2 border border-transparent hover:border-gray-300
+//                          rounded cursor-pointer bg-gray-50 text-gray-700"
+//             >
+//               {user.name}
+//             </div>
+//           )}
+//         </div>
 
-export default Profile;
+//         <div>
+//           <label className="block text-sm font-medium text-gray-700">
+//             Email
+//           </label>
+//           <p className="mt-1 text-gray-900">{user.email}</p>
+//         </div>
+
+//         <div>
+//           <label className="block text-sm font-medium text-gray-700">
+//             Created At
+//           </label>
+//           <p className="mt-1 text-gray-900">
+//             {new Date(user.createdAt).toLocaleString()}
+//           </p>
+//         </div>
+
+//         <div>
+//           <label className="block text-sm font-medium text-gray-700">
+//             Updated At
+//           </label>
+//           <p className="mt-1 text-gray-900">
+//             {new Date(user.updatedAt).toLocaleString()}
+//           </p>
+//         </div>
+
+//         {isEditing && (
+//           <div className="flex space-x-4 mt-6">
+//             <button
+//               onClick={handleSave}
+//               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+//             >
+//               Save
+//             </button>
+//             <button
+//               onClick={handleCancel}
+//               className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+//             >
+//               Cancel
+//             </button>
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Profile;

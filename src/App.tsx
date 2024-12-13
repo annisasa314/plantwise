@@ -9,6 +9,26 @@ import Login from "./pages/Login/Login";
 
 import SignUp from "./pages/SignUp/SignUp";
 import Calculator from "./pages/Kalkulator/Kalkulator";
+import PanduanForm from "./pages/Admin/Panduan/PanduanForm";
+import Dashboard from "./pages/Admin/Dashboard/Dashboard";
+import UserPage from "./pages/Admin/User/User";
+import JadwalAdmin from "./pages/Admin/Jadwal/Jadwal";
+import EditJadwal from "./pages/Admin/Jadwal/EditJadwal";
+import AddJadwal from "./pages/Admin/Jadwal/TambahJadwal";
+import PostPage from "./pages/Admin/Forum/Post";
+import CommentPage from "./pages/Admin/Forum/Komentar";
+import Jadwal from "./pages/Jadwal/jadwal";
+import Home from "./pages/Home/Home";
+import Panduan from "./pages/Panduan/Panduan";
+
+import Forum from "./pages/Forum/Forum";
+import CommentsPage from "./pages/Forum/ForumComments";
+import NewPost from "./pages/Forum/ForumPost";
+
+import AdminLogin from "./pages/Admin/Login/AdminLogin";
+import AdminTutorials from "./pages/Admin/Panduan/Panduan";
+import { RequireAuth } from "./middleware/auth.middleware";
+import { AdminOnly } from "./middleware/admin.middleware";
 
 // Ionic CSS
 import "@ionic/react/css/core.css";
@@ -24,16 +44,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-import Profile from "./pages/Profile/Profile";
-
-import PanduanForm from "./pages/Admin/Panduan/PanduanForm";
-import Dashboard from "./pages/Admin/Dashboard/Dashboard";
-import UserPage from "./pages/Admin/User/User";
-import JadwalAdmin from "./pages/Admin/Jadwal/Jadwal";
-import EditJadwal from "./pages/Admin/Jadwal/EditJadwal";
-import AddJadwal from "./pages/Admin/Jadwal/TambahJadwal";
-import PostPage from "./pages/Admin/Forum/Post";
-import CommentPage from "./pages/Admin/Forum/Komentar";
+// import Profile from "./pages/Profile/Profile";
 
 /**
  * Ionic Dark Mode
@@ -48,20 +59,6 @@ import CommentPage from "./pages/Admin/Forum/Komentar";
 
 /* Theme variables */
 import "./theme/variables.css";
-import Jadwal from "./pages/Jadwal/jadwal";
-import Home from "./pages/Home/Home";
-import Panduan from "./pages/Panduan/Panduan";
-
-import Forum from "./pages/Forum/Forum";
-import CommentsPage from "./pages/Forum/ForumComments";
-import NewPost from "./pages/Forum/ForumPost";
-
-import AdminLogin from "./pages/Admin/Login/AdminLogin";
-import AdminTutorials from "./pages/Admin/Panduan/Panduan";
-import EditTutorial from "./pages/Admin/Panduan/EditPanduan";
-import { RequireAuth } from "./middleware/auth.middleware";
-import { AdminOnly } from "./middleware/admin.middleware";
-// import { Forum } from "@mui/icons-material";
 
 setupIonicReact();
 
@@ -89,11 +86,11 @@ const App: React.FC = () => (
           <Route path="/comments/:postId" component={CommentsPage} />
           <Route path="/forum/category/:categoryName" component={Forum} />
 
-          <Route exact path="/profile">
+          {/* <Route exact path="/profile">
             <RequireAuth>
               <Profile />
             </RequireAuth>
-          </Route>
+          </Route> */}
           <Route exact path="/panduan">
             <RequireAuth>
               <Panduan />
