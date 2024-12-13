@@ -10,7 +10,7 @@ export type TUser = User & {
   name: string;
   email: string;
   role: ERole;
-  photoURL?: string;
+  // photoURL?: string;
   createdAt: string;
   updatedAt: string;
 };
