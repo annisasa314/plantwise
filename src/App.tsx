@@ -82,10 +82,10 @@ const App: React.FC = () => (
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
           {/* <Route exact path="/forumPage" component={ForumPage} /> */}
-          <Route exact path="/forum" component={ForumPage} />
-          <Route exact path="/forum/create" component={NewPost} />
+          {/* <Route exact path="/forum" component={ForumPage} /> */}
+          {/* <Route exact path="/forum/create" component={NewPost} />
           <Route path="/comments/:postId" component={CommentsPage} />
-          <Route path="/forum/category/:categoryName" component={Forum} />
+          <Route path="/forum/category/:categoryName" component={Forum} /> */}
 
           {/* <Route exact path="/profile">
             <RequireAuth>
@@ -109,7 +109,7 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/forum">
             <RequireAuth>
-              <Forum />
+              <ForumPage />
             </RequireAuth>
           </Route>
 

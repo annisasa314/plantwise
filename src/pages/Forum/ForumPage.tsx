@@ -81,24 +81,28 @@ const ForumPage: React.FC = () => {
     <MainLayout>
       <IonContent>
         <div className="container mx-auto">
-          <div className="flex justify-between items-center mb-4">
-            <IonToolbar
-              color="primary"
-              className="text-white pl-8 rounded-r-lg"
-            >
+          <div className="flex flex-col mb-4">
+            <IonToolbar color="primary" className="text-white pl-8">
               <IonTitle className="font-bold">Forum Diskusi</IonTitle>
             </IonToolbar>
-            {/* Create Post Button (only for logged-in users) */}
-            {currentUser ? (
-              <IonButton
-                color="primary"
-                onClick={() => setIsCreatePostModalOpen(true)}
-              >
-                Create Post
-              </IonButton>
-            ) : (
-              <IonText color="medium">Please log in to create a post</IonText>
-            )}
+
+            {/* Create Post Button (aligned to the right) */}
+            <div className="flex justify-between items-center mt-4 px-8">
+              <div className="ml-auto">
+                {currentUser ? (
+                  <IonButton
+                    color="primary"
+                    onClick={() => setIsCreatePostModalOpen(true)}
+                  >
+                    Create Post
+                  </IonButton>
+                ) : (
+                  <IonText color="medium">
+                    Please log in to create a post
+                  </IonText>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Loading State */}

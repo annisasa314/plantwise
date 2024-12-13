@@ -55,16 +55,14 @@ const PostCard: React.FC<PostCardProps> = ({ post, currentUser }) => {
   };
 
   return (
-    <IonCard className="mb-4 p-4 bg-white shadow-md rounded-lg">
+    <IonCard className="mb-4 p-4 bg-white shadow-lg rounded-lg hover:translate-y-2 duration-200 ">
       <IonCardHeader>
         <IonCardTitle className="text-xl font-bold">{post.judul}</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         {/* New section for displaying the question */}
-        <div className="bg-gray-100 p-3 rounded-lg mb-3">
-          <IonText color="dark">
-            <strong>Pertanyaan:</strong> {post.pertanyaan}
-          </IonText>
+        <div className="bg-gray-100 pt-3 pb-3 pl-1 rounded-lg mb-3">
+          <IonText color="dark">{post.pertanyaan}</IonText>
         </div>
 
         <p className="text-gray-700 mb-2">{post.body}</p>
