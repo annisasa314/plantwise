@@ -1,10 +1,9 @@
 import React from "react";
 import { IonFooter, IonGrid, IonRow, IonCol } from "@ionic/react";
 import "./Footer.css";
-
 const Footer: React.FC = () => {
   return (
-    <IonFooter className="footer">
+    <IonFooter className="footer bg-green-900">
       <IonGrid className="footer-container">
         {/* Brand Section */}
         <IonRow className="footer-row">
@@ -16,14 +15,9 @@ const Footer: React.FC = () => {
                 className="logo-img-footer"
               />
             </div>
-            <p className="footer-description">
-              Duis feugiat mauris sit amet dolor dapibus, vitae malesuada nibh
-              porta. Sed dui leo, aliquet in tortor condimentum, pellentesque
-              convallis magna.
-            </p>
+
             <p className="copyright">©2024 plantwise. Semua Hak Dilindungi.</p>
           </IonCol>
-
           {/* Links Section */}
           <IonCol sizeMd="4" sizeSm="6" className="footer-links">
             <ul>
@@ -31,7 +25,7 @@ const Footer: React.FC = () => {
                 <a href="#">Beranda</a>
               </li>
               <li>
-                <a href="#">Daftar / Masuk</a>
+                <a href="">Daftar / Masuk</a>
               </li>
               <li>
                 <a href="#">Tentang Kami</a>
@@ -44,7 +38,6 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </IonCol>
-
           {/* Social Media Section */}
           <IonCol sizeMd="4" sizeSm="6" className="footer-socials">
             <a href="#">
@@ -68,5 +61,4 @@ const Footer: React.FC = () => {
     </IonFooter>
   );
 };
-
 export default Footer;

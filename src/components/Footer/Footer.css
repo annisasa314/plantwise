@@ -3,70 +3,57 @@
   color: #ffffff;
   padding: 20px 0;
 }
-
 .footer-container {
   max-width: 1200px;
   margin: 0 auto;
 }
-
 .footer-row {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
 }
-
 .footer-brand {
   text-align: left;
 }
-
 .logo-img {
   height: 50px;
   margin-bottom: 10px;
 }
-
 .footer-description {
   font-size: 14px;
   line-height: 1.6;
   margin-bottom: 10px;
 }
-
 .copyright {
   font-size: 12px;
   margin-top: 10px;
 }
-
 .footer-links ul {
   list-style: none;
   padding: 0;
 }
-
 .footer-links li {
   margin-bottom: 10px;
 }
-
 .footer-links a {
   color: #ffffff;
   text-decoration: none;
   font-size: 14px;
 }
-
 .footer-links a:hover {
   text-decoration: underline;
 }
-
 .footer-socials {
   display: flex;
   gap: 15px;
   align-items: center;
   justify-content: flex-start;
 }
-
 .footer-socials a {
   color: #ffffff;
   font-size: 20px;
   text-decoration: none;
 }
-
 .footer-socials a:hover {
   color: #d3d3d3;
 }
