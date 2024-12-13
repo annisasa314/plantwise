@@ -59,6 +59,7 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import ForumPage from "./pages/Forum/ForumPage";
 
 setupIonicReact();
 
@@ -80,8 +81,8 @@ const App: React.FC = () => (
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/home" component={Home} />
-
-          <Route exact path="/forum" component={Forum} />
+          {/* <Route exact path="/forumPage" component={ForumPage} /> */}
+          <Route exact path="/forum" component={ForumPage} />
           <Route exact path="/forum/create" component={NewPost} />
           <Route path="/comments/:postId" component={CommentsPage} />
           <Route path="/forum/category/:categoryName" component={Forum} />
