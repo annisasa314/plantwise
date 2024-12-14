@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { MaterialReactTable } from 'material-react-table';
-import { getUsers, deleteUser } from '../../../services/auth.service';
-import { IconButton, Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Snackbar } from '@mui/material';
-import { IonPage, IonContent } from '@ionic/react';
-import Navbar from '../../../components/Navbar/Navbar';
+import React, { useEffect, useState } from "react";
+import { MaterialReactTable } from "material-react-table";
+import { getUsers, deleteUser } from "../../../services/auth.service";
+import {
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Snackbar } from "@mui/material";
+import { IonPage, IonContent } from "@ionic/react";
+import Navbar from "../../../components/Navbar/Navbar";
+import AdminLayout from "../../../layouts/AdminLayout";
 
 const UserPage: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -51,26 +59,25 @@ const UserPage: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <AdminLayout>
       <IonContent className="ion-padding">
         <MaterialReactTable
           columns={[
             {
-              accessorKey: 'name',
-              header: 'Name',
+              accessorKey: "name",
+              header: "Name",
             },
             {
-              accessorKey: 'email',
-              header: 'Email',
+              accessorKey: "email",
+              header: "Email",
             },
             {
-              accessorKey: 'createdAt',
-              header: 'Created At',
+              accessorKey: "createdAt",
+              header: "Created At",
             },
             {
-              id: 'delete',
-              header: 'Actions',
+              id: "delete",
+              header: "Actions",
               Cell: ({ row }) => (
                 <IconButton
                   onClick={() => handleOpenDeleteDialog(row.original.id)}
@@ -111,7 +118,7 @@ const UserPage: React.FC = () => {
           message={snackbarMessage}
         />
       </IonContent>
-    </IonPage>
+    </AdminLayout>
   );
 };
 

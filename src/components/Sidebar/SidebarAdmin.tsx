@@ -6,6 +6,7 @@ import {
   documentTextOutline,
   homeOutline,
   logOutOutline,
+  personOutline,
 } from "ionicons/icons";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
@@ -126,6 +127,22 @@ export const AdminSidebar: React.FC<{
                   className="w-6 h-6 mr-3 text-white"
                 />
                 {isOpen && <span className="text-white">Jadwal</span>}
+              </li>
+            </Link>
+
+            {/* User*/}
+            <Link to="/admin/user">
+              <li
+                onClick={() => setActiveMenu("user")}
+                className={`px-4 py-2 flex items-center cursor-pointer transition
+              ${isOpen ? "justify-start" : "justify-center"}
+              ${activeMenu === "user" ? "bg-[#2f4b26]" : "hover:bg-[#2f4b26]"}`}
+              >
+                <IonIcon
+                  icon={personOutline}
+                  className="w-6 h-6 mr-3 text-white"
+                />
+                {isOpen && <span className="text-white">User</span>}
               </li>
             </Link>
 
