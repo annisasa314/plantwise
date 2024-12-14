@@ -14,6 +14,9 @@ import { fetchPosts, addPost } from "../../services/auth";
 import CreatePostModal from "../../components/Forum/CreatePostModal";
 import { TUser, ERole } from "../../type/user.type"; // Adjust import path
 import { MainLayout } from "../../layouts/MainLayout";
+import { ChatbotProvider } from "../../components/Bot/ChatbotProvider";
+import Chatbot from "../../components/Bot/Chatbot";
+import ChatbotFloatingIcon from "../../components/Bot/ChatbotIcon";
 
 const ForumPage: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -138,6 +141,12 @@ const ForumPage: React.FC = () => {
             />
           )}
         </div>
+
+        {/* Chatbot components */}
+        <ChatbotProvider>
+          <Chatbot />
+          <ChatbotFloatingIcon />
+        </ChatbotProvider>
       </IonContent>
     </MainLayout>
   );

@@ -6,9 +6,6 @@ import { MainLayout } from "../../layouts/MainLayout";
 import About from "../../components/About/About";
 import VisionMission from "../../components/Misi/Misi";
 import TutorialGrid from "../../components/Fitur/Fitur";
-import { ChatbotProvider } from "../../components/Bot/ChatbotProvider";
-import Chatbot from "../../components/Bot/Chatbot";
-import ChatbotFloatingIcon from "../../components/Bot/ChatbotIcon";
 
 const Home: React.FC = () => {
   return (
@@ -34,12 +31,6 @@ const Home: React.FC = () => {
               </section>
             </section>
           </IonGrid>
-
-          {/* Chatbot components */}
-          <ChatbotProvider>
-            <Chatbot />
-            <ChatbotFloatingIcon />
-          </ChatbotProvider>
           <Footer />
         </section>
       </IonContent>
