@@ -102,7 +102,10 @@ const ForumComments: React.FC = () => {
 
       setPost((prevPost) => {
         if (prevPost) {
-          const updatedPost = { ...prevPost, comments: [...prevPost.comments, newCommentObj] };
+          const updatedPost = {
+            ...prevPost,
+            comments: [...prevPost.comments, newCommentObj],
+          };
           saveToLocalStorage(updatedPost);
           return updatedPost;
         }
@@ -115,7 +118,6 @@ const ForumComments: React.FC = () => {
 
   return (
     <IonPage>
-      <Navbar />
       <IonContent>
         <div className="comments-container">
           <h1 className="comments-title">{post?.title}</h1>

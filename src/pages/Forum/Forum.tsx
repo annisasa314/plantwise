@@ -141,7 +141,6 @@ const Forum: React.FC = () => {
 
   return (
     <IonPage>
-      <Navbar />
       <IonContent>
         <div className="forum-container">
           <IonSearchbar
