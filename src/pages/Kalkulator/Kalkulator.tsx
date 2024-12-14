@@ -16,6 +16,7 @@ import { Stage, Layer, Rect, Group, Image as KonvaImage } from "react-konva";
 import Navbar from "../../components/Navbar/Navbar";
 
 import "./Kalkulator.css";
+import { MainLayout } from "../../layouts/MainLayout";
 
 const Calculator: React.FC = () => {
   const [length, setLength] = useState<number>(0);
@@ -172,11 +173,10 @@ const Calculator: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <Navbar />
+    <MainLayout>
       <IonToolbar color="primary" className="text-white">
-          <IonTitle className="font-bold">Kalkulator Jarak Tanam</IonTitle>
-        </IonToolbar>
+        <IonTitle className="font-bold">Kalkulator Jarak Tanam</IonTitle>
+      </IonToolbar>
       <IonContent>
         <IonCard>
           <IonCardContent>
@@ -252,7 +252,7 @@ const Calculator: React.FC = () => {
           </IonCardContent>
         </IonCard>
       </IonContent>
-    </IonPage>
+    </MainLayout>
   );
 };
 
