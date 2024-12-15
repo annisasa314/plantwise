@@ -92,7 +92,7 @@ export const Navitems: React.FC = () => {
         <img
           src="/logo.png"
           alt="Plantwise Logo"
-          className="logo-img w-24 h-auto"
+          className="logo-img w-21 h-21"
         />
       </IonButtons>
 
